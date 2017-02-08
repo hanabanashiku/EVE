@@ -1,2 +1,0 @@
-# EVE
-An AI Companion
