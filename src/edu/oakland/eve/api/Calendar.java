@@ -19,6 +19,8 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.oakland.eve.core;
+
 /***
  * @author Michael MacLean
  * @version 1.0
@@ -29,12 +31,12 @@ import java.util.List;
  * A class for managing Google Calendar API calls
  */
 
-public class Calendar{
+public class CalendarAPI{
 	private static final File DATA_STORE_DIR = new File(System.getProperty("user.home"), ".credentials/eve-calendar");
 	private static FileDataStoreFactory dataFactory;
 	private static final JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 	private static HttpTransport http;
-	private static final List<String> SCOPES =
+	private static final List<String> scopes =
 			Arrays.asList(CalendarScopes.CALENDAR);
 
 	static{
@@ -48,8 +50,41 @@ public class Calendar{
 			System.exit(1);
 		}
 	}
-
+    
+    /***
+    * Crates a Credential object authorized by the Google API.
+    * @return an authorized Credential object.
+    * @throws IOException
+    */
 	public static Crendential authorize() throws IOException{
-
+        InputStream in = Calendar.class.getResourceAsStream("/client_secret.json");
+        GoogleClientSecrets secrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(in));
+        
+        GoogleAuthorizationCodeFlow flow = 
+            new GoogleAuthorizationCodeFlow.Builder(
+                http, jsonFactory, secrets, scopes)
+            .setDataStoreFactory(dataFactory)
+            .setAccessType("offline")
+            .build();
+        Credential cred = new AuthorizationCodeInstalledApp(
+        flow, new LocalServerReceiver().authorize("user"));
+        return credential;
 	}
+    
+    /***
+    * Build and return the authorized Calendar client service
+    * @return an authorized Calendar client service
+    * @throws IOException
+    */
+    public static com.google.api.services.calendar.Calendar getCalendarService() throws IOException{
+        Credential cred = authorize();
+        return new com.google.api.services.calendar.Calendar.Builder(
+            http, jsonFactory, cred)
+            .setApplictionName(Program.APP_NAME)
+            .build();
+    }
+    
+    public CalendarAPI(){
+        
+    }
 }
