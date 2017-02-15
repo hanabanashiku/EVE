@@ -12,6 +12,7 @@ public class Settings implements Serializable {
 
 	private static final String filename = "settings.bin";
 
+	// put default values here
 	private Settings(){
 
 	}
@@ -33,8 +34,10 @@ public class Settings implements Serializable {
 		catch(IOException|ClassNotFoundException e){ return null;}
 	}
 
-	// Called by the garbage collector
-	protected void finalize(){
+	/***
+	* Close the instance and save to disk
+	*/
+	public void close(){
 		try{
 			FileOutputStream fout = new FileOutputStream(filename);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -44,5 +47,8 @@ public class Settings implements Serializable {
 		}
 		catch(IOException e){ }
 	}
+	
+	// called by the garbage collector
+	protected void finalize() { close(); }
 
 }
