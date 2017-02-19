@@ -5,6 +5,8 @@ import com.google.api.client.util.DateTime;
 import java.io.Serializable;
 import java.net.URL;
 
+import org.w3c.dom.*;
+
 /**
  * Represents a story from an RSS feed
  * @author Michael MacLean
@@ -16,8 +18,8 @@ public class Story implements Serializable {
     private URL link;
     private String description;
     private String author;
-    private String[] categories;
     private DateTime pubDate;
+    private boolean read;
 
     /**
      * @return The title of the story
@@ -38,11 +40,16 @@ public class Story implements Serializable {
      */
     public String getAuthor() { return author; }
 
-    public String[] getCategories() { return categories; }
-
+    /**
+     * @return The date the story was published
+     */
     public DateTime getPubDate() { return pubDate; }
 
-    public Story(){
+    /**
+     * Generate a new story object based on a feed entry.
+     * @param item an entry from a feed
+     */
+    protected Story(Node item){
 
     }
 }
