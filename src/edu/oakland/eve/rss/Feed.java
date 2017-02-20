@@ -22,14 +22,26 @@ import edu.oakland.eve.error.RSSFormatException;
  * @since 1.0
  */
 public class Feed implements Serializable{
+    private String name;
     private String title;
     private String link;
     private URL url;
     private String description;
     private String imageurl;
     private boolean isAtomFeed;
+    private String category;
     private LinkedList<Story> stories;
 
+    /**
+     * @return The feed name provided by the user
+     */
+    public String getName() { return name; }
+
+    /**
+     * Set the feed's name
+     * @param value What to cal the feed
+     */
+    public void setName(String value) { name = value; }
     /**
      * @return The feed's title
      */
@@ -52,12 +64,41 @@ public class Feed implements Serializable{
 
     /***
      * Fetch the image from the feed's specified image URL and return it
-     * @return AWT image file, or null if the image URL is not defined or could not be loaded
+     * @return AWT image, or null if the image URL is not defined or could not be loaded
      * TODO: Implement image caching if performance is an issue
      */
     public Image getImage(){
         try{ return ImageIO.read(new URL(imageurl)); }
         catch(Exception e){ return null; }
+    }
+
+    /**
+     * @return Returns the feed category provided by the user
+     */
+    public String getCategory() { return category; }
+
+    /**
+     * Set the category of the feed. Feeds will be organized based on these categories.
+     * To mark the feed as uncategorized, set the {@code value} parameter to null.
+     * @param value The category to set the feed as.
+     */
+    public void setCategory(String value) {  category = value; }
+
+    /**
+     * Provides a suggested category based on the source feed
+     * @return The category, as defined by the source feed, or null if undefined.
+     */
+    public String getSuggestedCategory() {
+        try {
+            Document doc = parse();
+            NodeList cat = doc.getElementsByTagName("category");
+            if(cat.getLength() == 0) return null;
+            if(isAtomFeed) // <category term="news" />
+                return ((Element)cat.item(0)).getAttribute("term");
+            else // <category>news</category>
+                return cat.item(0).getTextContent();
+        }
+        catch(Exception e) { return null; }
     }
 
     /**
@@ -88,9 +129,37 @@ public class Feed implements Serializable{
 
             updateMetaData(doc);
             pullLatestStories(doc);
+            name = title;
+            category = null;
         }
         catch(SAXException e) { throw new RSSFormatException(e.getMessage()); }
 
+    }
+
+    /**
+     * Initialize a feed object
+     * @param feedURL The URL to the RSS feed
+     * @param cat The category to place the feed into.
+     * @throws RSSFormatException if the given file is not an RSS or Atom feed
+     * @throws IOException if the URL could not be opened properly or if it was malformed.
+     */
+    public Feed(String feedURL, String cat) throws RSSFormatException, IOException{
+        this(feedURL);
+        category = cat;
+    }
+
+    /**
+     * Initialize a feed object
+     * @param feedURL The URL to the RSS feed
+     * @param feedName The name to call the feed by.
+     * @param cat The category to place the feed into.
+     * @throws RSSFormatException if the given file is not an RSS or Atom feed
+     * @throws IOException if the URL could not be opened properly or if it was malformed.
+     */
+    public Feed(String feedURL, String feedName, String cat) throws RSSFormatException, IOException{
+        this(feedURL);
+        name = feedName;
+        category = cat;
     }
 
     // use this to parse the file
