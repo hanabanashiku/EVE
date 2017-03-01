@@ -12,7 +12,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import java.net.URLConnection;
 /**
- * 
  * @author Murilo Delgado
  * @version 1.0
  * @since 1.0
