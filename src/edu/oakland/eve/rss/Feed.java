@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.xml.parsers.*;
 import javax.xml.parsers.ParserConfigurationException;
-import java.util.LinkedList;
+import java.util.Stack;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -30,7 +30,7 @@ public class Feed implements Serializable{
     private String imageurl;
     private boolean isAtomFeed;
     private String category;
-    private LinkedList<Story> stories;
+    private Stack<Story> stories = new Stack<Story>();
 
     /**
      * @return The feed name provided by the user
@@ -249,6 +249,17 @@ public class Feed implements Serializable{
         catch(SAXException e) { throw new RSSFormatException(e.getMessage()); }
     }
     private void pullLatestStories(Document doc){
+      NodeList nl;
+      if(isAtomFeed) nl = doc.getElementsByTagName("entry");
+      else nl = doc.getElementsByTagName("item");
 
+      Story first = stories[0];
+      for(int i = 0; i < nl.getLength(); i++){
+        Node n = nl.item(i);
+        String link = (isAtomFeed) ? nl.getNodeName("id").getNodeValue() : nl.getNodeName("guid").getNodeValue();
+        if(!stories.empty() && first.getLink() == link)
+          break;
+        stories.push(new Story(n));
+      }
     }
 }
