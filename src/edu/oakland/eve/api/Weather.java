@@ -11,6 +11,14 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import java.net.URLConnection;
+/**
+ * 
+ * @author Murilo Delgado
+ * @version 1.0
+ * @since 1.0
+ * Generates a XML File with weather info
+ * based off api.openweather.org
+ */
 
     public class Weather {
 
