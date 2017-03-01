@@ -14,13 +14,15 @@ import java.net.URLConnection;
 
     public class Weather {
 
-        public static void main(String[] args) throws IOException, SAXException, TransformerException, ParserConfigurationException{
-            generateWeather("Chicago","18c88925203d14822e71a822f7cf107a");
-        }
+        // generateWeather takes in one parameter (city) and spits back
+        // a XML formatted response with all weather information (temp in K)
+        // interface will deal with converting temp and parsing in useful info only
+        public static void generateWeather(String city) throws IOException, SAXException, TransformerException, ParserConfigurationException{
+            // API Key does not change
+            final String APIKey = "18c88925203d14822e71a822f7cf107a";
 
-        public static void generateWeather(String city, String APIkey) throws IOException, SAXException, TransformerException, ParserConfigurationException{
             // creating the URL
-            String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&mode=xml&appid=" + APIkey;
+            String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&mode=xml&appid=" + APIKey;
             
             // printing out XML
             URL urlString = new URL(url);
