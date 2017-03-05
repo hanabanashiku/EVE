@@ -5,7 +5,7 @@ import rss.*;
 
 public class CNNRSSFEED {
    
-    //Display RSS Feed in system console 
+    //DISPLAYS RSSFEED IN SYSTEM CONSOLE 
     
     public static void main(String[] args) {
        RSSSAX r = new RSSSAX();
