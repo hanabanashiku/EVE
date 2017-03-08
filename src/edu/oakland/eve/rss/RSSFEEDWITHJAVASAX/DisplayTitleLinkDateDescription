@@ -1,0 +1,84 @@
+package rss;
+
+//Imports 
+import javax.xml.parsers.*;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+
+import org.xml.sax.helpers.*;
+
+
+public class RSSSAX {
+   
+ //Try Catch Block    
+ public void displayRSS(){
+     try{
+         SAXParserFactory spf = 
+         SAXParserFactory.newInstance();
+         SAXParser sp = spf.newSAXParser();
+        
+         sp.parse("http://rss.cnn.com/rss/cnn_topstories.rss", new RSSHandler());
+         
+     } catch (Exception e) {
+         System.out.println(e.getMessage());
+     }
+ }  
+ 
+ private class RSSHandler extends DefaultHandler {
+     
+      private boolean isItem =false;
+      private String tagName ="";
+
+      //RSS Display Title 
+        @Override
+        public void characters(char[] arg0, int arg1, int arg2) throws SAXException {
+             if(this.isItem) {
+               
+                 if(this.tagName.equals("title"))
+                 {
+                     System.out.println("Title:" + (new 
+               String(arg0, arg1, arg2)));
+                this.tagName = ""; 
+                 }
+                 
+                 
+                 //RSS Display Link 
+                  if (this.tagName.equals("link"))
+                  {  
+                      System.out.println("Link: " + (new String(arg0, arg1, arg2)));
+                  this.tagName = ""; 
+                  }
+                 
+                  //RSS Display Description 
+                  if(this.tagName.equals("description"))
+                  {   
+                     System.out.println("Description:" + (new String(arg0, arg1, arg2)).replaceAll("\\<.*?>",""));
+                  this.tagName = "";
+                  }   
+             }     
+        }
+          
+        //RSS Display Spaces between each title,description,and link to story 
+        @Override
+        public void endElement(String arg0, String arg1, String arg2) throws SAXException {
+            
+            if(arg2.equals("item"))
+            {
+                System.out.println("=====================");
+                this.isItem = false;
+            }    
+           
+        }
+
+        @Override
+        public void startElement(String arg0, String arg1, String arg2, Attributes arg3) throws SAXException {
+            this.tagName = arg2;
+            if(arg2.equals("item"))
+                this.isItem = true;
+        }
+  
+     
+     
+ }
+    
+}
