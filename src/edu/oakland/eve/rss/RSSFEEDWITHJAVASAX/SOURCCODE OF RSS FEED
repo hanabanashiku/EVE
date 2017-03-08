@@ -1,5 +1,5 @@
 //By storing source code of rss feed in a xml document in your packages folder it will automatically update with the latest stories 
-dates, etc. 
+descriptions, links etc. 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
