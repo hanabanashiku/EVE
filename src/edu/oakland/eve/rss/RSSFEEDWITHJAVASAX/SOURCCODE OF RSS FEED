@@ -1,0 +1,393 @@
+//By storing source code of rss feed in a xml document in your packages folder it will automatically update with the latest stories 
+descriptions, links etc. 
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>RSS (Really Simple Syndication) - CNN.com</title> <meta name="Title" content="RSS (Really Simple Syndication) - CNN.com"> <meta name="Description" content="CNN RSS (Really Simple Syndication) is an XML-based format for sharing and distributing Web content, such as news headlines. Using an RSS reader, you can view data feeds from various news sources, such as CNN.com, including headlines, summaries, links to full stories."> <meta name="Keywords" content="CNN RSS, RSS, Really Simple Syndication, Rich Site Summary, Top Stories, Most Popular"> 
+
+<link rel="Start" href="/">
+<link rel="Search" href="/search/">
+<style type="text/css" media="screen">
+		@import url(/.element/css/2.0/common.css);
+	</style>
+<link rel="stylesheet" href="http://i.cdn.turner.com/cnn/.element/ssi/css/1.0/alerts.css" type="text/css">
+<script src="http://i.cdn.turner.com/cnn/.element/js/2.0/scripts/prototype.js"></script>
+	<script src="http://i.cdn.turner.com/cnn/.element/js/2.0/scripts/scriptaculous.js?load=effects"></script>
+	<script src="http://i.cdn.turner.com/cnn/.element/js/2.0/csiManager.js"></script>
+
+<script language="JavaScript" type="text/javascript">var cnnCurrTime = new Date(1410288904753); var cnnCurrHour = 14; var cnnCurrMin = 55; var cnnCurrDay='Tue';</script>
+	<script src="http://i.cdn.turner.com/cnn/.element/js/2.0/main.js"></script>
+<link rel="alternate" type="application/rss+xml" title="CNN.com: Top Stories" href="http://rss.cnn.com/rss/cnn_topstories.rss"/>
+<link rel="alternate" type="application/rss+xml" title="CNN.com: World" href="http://rss.cnn.com/rss/cnn_world.rss" />
+<link rel="alternate" type="application/rss+xml" title="CNN.com: U.S." href="http://rss.cnn.com/rss/cnn_us.rss" />
+<link rel="alternate" type="application/rss+xml" title="CNN.com: Politics" href="http://rss.cnn.com/rss/cnn_allpolitics.rss" />
+<link rel="alternate" type="application/rss+xml" title="CNN.com: Technology" href="http://rss.cnn.com/rss/cnn_tech.rss" />
+<link rel="alternate" type="application/rss+xml" title="CNN.com: Health" href="http://rss.cnn.com/rss/cnn_health.rss" />
+<link rel="alternate" type="application/rss+xml" title="CNN.com: Entertainment" href="http://rss.cnn.com/rss/cnn_showbiz.rss" />
+<link rel="alternate" type="application/rss+xml" title="CNN.com: Travel" href="http://rss.cnn.com/rss/cnn_travel.rss" />
+<link rel="alternate" type="application/rss+xml" title="CNN.com: Living" href="http://rss.cnn.com/rss/cnn_living.rss" />
+<link rel="alternate" type="application/rss+xml" title="CNN.com: Video" href="http://rss.cnn.com/rss/cnn_freevideo.rss" />
+<link rel="alternate" type="application/rss+xml" title="CNN.com: CNN Student News" href="http://rss.cnn.com/services/podcasting/studentnews/rss.xml" />
+
+<style type="text/css">
+
+/* reskin specific styles */
+.cnnOldContentCenter{width:670px;margin:0 auto;}
+
+.cnnOldContentContainer a{color:#009;text-decoration:underline;}
+.cnnOldContentContainer a:hover{color:#900;text-decoration:none;}
+.cnnOldContentContainer a:visited{color:#336;}
+
+.cnnOldContentContainer{padding:8px 16px;}
+.cnnMemberServicesParentBox{margin-top:15px;background-color:#eee;border:1px solid #ccc;padding:6px;}
+
+.cnnOldContentHeadingContainer{padding-right:18px;margin-bottom:24px;}
+.cnnOldContentHeading{font-size:32px;color:#ca0002;font-weight:bold;padding-bottom:6px;padding-top:4px;height:16px;width:100%;border-bottom:3px solid #003366;}
+/* reskin specific styles */
+
+</style>
+
+
+
+<script type="text/javascript" src="http://i.cdn.turner.com/cnn/.element/js/2.0/frame.js"></script>
+<script type="text/javascript" src="http://i.cdn.turner.com/cnn/.element/js/2.0/ad_head0.js"></script>
+<script type="text/javascript" src="http://i.cdn.turner.com/cnn/cnn_adspaces/cnn_adspaces.js"></script>
+
+
+</head>
+<body>
+
+<!--include virtual="/editionssi/misc/2.0/header/sect/ref/min/generic.html" -->
+<script>window.CNNSTATICSECTION = '';var CNN = CNN || {};</script>
+<div class="cnn-js-chrome-wrapper">
+    <div class="cnn-js-navigation" data-type="nav"></div>
+</div>
+<script>var CNNENV = "http://www.cnn.com";</script>
+<script src="http://z.cdn.turner.com/cnn/.element/ssi/www/misc/4.0/static/js/static-chrome-companion.min.js?v22"></script>
+
+
+<div class="cnn728Container">
+	<div class="cnn728Ad"><div><!-- ADSPACE: rss/top.728x90 -->
+
+<!-- CALLOUT|http://ads.cnn.com/html.ng/site=cnn&cnn_position=728x90_top&cnn_rollup=rss&page.allowcompete=yes&params.styles=fs|CALLOUT -->
+<div id="ad-564391" align="center" style="padding: 0; margin: 0; border: 0;"></div>
+<script type="text/javascript">
+cnnad_createAd("564391","http://ads.cnn.com/html.ng/site=cnn&cnn_position=728x90_top&cnn_rollup=rss&page.allowcompete=yes&params.styles=fs","90","728");
+cnnad_registerSpace(564391,728,90);
+</script>
+
+
+
+
+
+</div></div></div>
+
+<div id="cnnContainer">
+	
+	<div id="cnnMainContent" class="cnnOldContentCenter">
+			
+		<div class="cnnWCBox">
+						
+			<div class="cnnWCBoxHeader"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/mosaic/base_skins/baseplate/corner_dg_TL.gif" width="4" height="4" border="0" alt=""></div>
+			<div class="cnnWCBoxContent">
+				
+				<div class="cnnOldContentContainer">
+				<div class="cnnOldContentHeadingContainer">
+							<div class="cnnOldContentHeading">CNN RSS</div>
+						</div>
+<!-- CONTENT STARTS HERE -->
+<div class="cnnBodyText">
+Subscribe to CNN's RSS (Really Simple Syndication) feeds to get news delivered directly to your desktop! In addition to the feeds listed here, look for the small red feed icons across the site, or the orange auto-discovery icon in your browser bar, to subscribe to a number of other feeds from CNN.com.
+<br><br>
+<b>To view one of the CNN feeds in your RSS Aggregator</b> (<a href="javascript:CNN_openPopup('/services/rss/about/where.exclude.html','620x430','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=620,height=430')">About RSS Aggregators</a>): <br>
+<div style="padding-left:10px;">
+1.	Copy the URL/shortcut that corresponds to the topic that interests you.<br>
+2.	Paste the URL into your reader.<br></div>
+<br>
+<b>My Yahoo! users:</b> <br>
+<div style="padding-left:10px;">1.	Click on the "Add to My Yahoo!" button.<br>
+2.	Follow the instructions for adding the feed to your My Yahoo! page.</div>
+<br>
+CNN.com now offers <a href="/services/podcasting/"><b>podcasting feeds</b></a>. <img src="http://i.cdn.turner.com/cnn/services/podcasting/images/icon.gif" vspace="0" hspace="0" border="0" align="absmiddle">
+<br><br>
+<div style="font-family:Arial;font-size:10px;">Please note that by accessing CNN RSS feeds, you agree to our <a href="#terms">terms of use</a>.</div>
+<br>
+<b><a href="javascript:CNN_openPopup('/services/rss/about/whatis.exclude.html','620x430','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=620,height=430')">What is RSS?</a> | <a href="javascript:CNN_openPopup('/services/rss/about/where.exclude.html','620x430','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=620,height=430')">How do I access RSS?</a></b>
+
+<div class="cnnMemberServicesParentBox">
+<table  cellpadding="0" cellspacing="0" border="0">
+ <tr valign="top">
+   <td  class="cnnBodyText"><a name="cnn"></a>
+       <table cellpadding="0" cellspacing="0" border="0">
+ 		<tr valign="top">
+           	<td width="180"><img src="http://i.cdn.turner.com/cnn/images/1.gif" width=180 height="1" hspace="0" vspace="0" alt="" border="0"></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="277"><img src="http://i.cdn.turner.com/cnn/images/1.gif" width=277 height="1" hspace="0" vspace="0" alt="" border="0"></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td ><img src="http://i.cdn.turner.com/cnn/images/1.gif"  height="1" hspace="0" vspace="0" alt="" border="0"></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103"><img src="http://i.cdn.turner.com/cnn/images/1.gif" width=103 height="1" hspace="0" vspace="0" alt="" border="0"></td>
+		</tr>
+ 		<tr valign="top">
+           	<td width="180" class="cnnBodyText" style="font-weight:bold; padding:6px;">Title</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="277" class="cnnBodyText" style="font-weight:bold; padding:6px;">Copy URLs to RSS Reader</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" style="font-weight:bold; padding:6px;">&nbsp;</td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" class="cnnBodyText" style="font-weight:bold; padding:6px;">&nbsp;</td>
+		</tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Top Stories</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_topstories.rss" target="_blank">http://rss.cnn.com/rss/cnn_topstories.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_topstories.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif"  hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/TOPSTORIES/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_topstories.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">World</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_world.rss" target="_blank">http://rss.cnn.com/rss/cnn_world.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_world.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/WORLD/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_world.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">U.S.</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_us.rss" target="_blank">http://rss.cnn.com/rss/cnn_us.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_us.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/US/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_us.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Business (CNNMoney.com)</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/money_latest.rss" target="_blank">http://rss.cnn.com/rss/money_latest.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/money_latest.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/MONEY/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/money_latest.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+
+
+
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Politics</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_allpolitics.rss" target="_blank">http://rss.cnn.com/rss/cnn_allpolitics.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_allpolitics.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/POLITICS/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_allpolitics.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+ 		
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Technology</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_tech.rss" target="_blank">http://rss.cnn.com/rss/cnn_tech.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_tech.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/TECH/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_tech.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Health</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_health.rss" target="_blank">http://rss.cnn.com/rss/cnn_health.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_health.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/HEALTH/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_health.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Entertainment</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_showbiz.rss" target="_blank">http://rss.cnn.com/rss/cnn_showbiz.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_showbiz.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://us.rd.yahoo.com/my/atm/CNN/SHOWBIZ/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_showbiz.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Travel</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_travel.rss" target="_blank">http://rss.cnn.com/rss/cnn_travel.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_travel.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/TOPSTORIES/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_travel.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+		<!-- LIVING-->
+		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Living</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_living.rss" target="_blank">http://rss.cnn.com/rss/cnn_living.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_living.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://e.my.yahoo.com/config/cstore?.opt=content&.url=http%3a//rss.cnn.com/rss/cnn_living.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+<!--/LIVING-->
+
+
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Video</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_freevideo.rss" target="_blank">http://rss.cnn.com/rss/cnn_freevideo.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_freevideo.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/VIDEO/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_freevideo.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+
+
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">CNN Student News</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/services/podcasting/studentnews/rss.xml" target="_blank">http://rss.cnn.com/services/podcasting/studentnews/rss.xml</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_studentnews.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif" hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/VIDEO/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_studentnews.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+		<tr valign="top">
+           	<td class="cnnBodyText" width="180" style="background-color:#ffffff; padding:6px;">Most Recent</td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td class="cnnBodyText" width="277" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_latest.rss" target="_blank">http://rss.cnn.com/rss/cnn_latest.rss</a></td>
+		  	<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://rss.cnn.com/rss/cnn_latest.rss" target="_blank"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/global/nav/header/header_rss_btn.gif"  hspace="0" vspace="0" border="0" alt="" align="absmiddle"></a></td>
+			<td width="2"><img height="1" width="2" src="http://i.cdn.turner.com/cnn/images/1.gif"></td>
+			<td width="103" valign="middle" style="background-color:#ffffff; padding:6px;"><a href="http://pa.yahoo.com/*http://us.rd.yahoo.com/my/atm/CNN/RECENT/*http://us.rd.yahoo.com/evt=32777/*http://add.my.yahoo.com/rss?url=http://rss.cnn.com/rss/cnn_latest.rss"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="91" height="17" hspace="0" vspace="0" border="0" align=middle alt="Add to My Yahoo!"></a></td>
+		</tr>
+           
+ 		<tr><td colspan="5"><img height="2" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></td></tr>
+	</table>
+
+  </td>
+ </tr>
+ <tr><td class="cnnBodyText">Want more RSS feeds?  Try the <b><a href="http://money.cnn.com/services/rss/">CNNMoney.com</a></b> feeds</td></tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<br><br>
+<a name="terms"></a>
+<div class="cnnMemberServicesRedHead">TERMS OF USE</div>
+<div><img height="6" width="4" src="http://i.cdn.turner.com/cnn/images/1.gif"></div>
+
+RSS (really simple syndication) service is a means by which CNN.com offers feeds of story headlines in XML format ("RSS Content") to visitors to CNN.com (the "CNN Site") who use RSS aggregators. These Terms of Use govern your use of the RSS service. The use of the RSS service also is subject to the terms and conditions of the <a href="/interactive_legal.html">CNN Interactive Service Agreement</a>, which governs the use of CNN's websites, information services and content. These Terms of Use and the CNN Interactive Service Agreement may be changed by CNN at any time without notice.
+<br><br>
+<b>Use of RSS Feeds:</b><br>
+<div style="padding-left:10px;">
+RSS is a free service offered by CNN for non-commercial use. Any other uses, including without limitation the incorporation of advertising into or the placement of advertising associated with or targeted towards the RSS Content, are strictly prohibited. You must use the RSS feeds as provided by CNN, and you may not edit or modify the text, content or links supplied by CNN.  For web posting, reprint, transcript or licensing requests for CNN material, please send your request to <a href="mailto:licensing.agent@turner.com">licensing.agent@turner.com</a>.
+</div>
+<br>
+<b>Link to Content Pages:</b><br>
+<div style="padding-left:10px;">
+The RSS service may be used only with those platforms from which a functional link is made available that, when accessed, takes the viewer directly to the display of the full article on the CNN Site. You may not display the RSS Content in a manner that does not permit successful linking to, redirection to or delivery of the applicable CNN Site web page. You may not insert any intermediate page, splash page or other content between the RSS link and the applicable CNN Site web page.
+</div>
+<br>
+<b>Ownership/Attribution:</b><br>
+<div style="padding-left:10px;">
+CNN retains all ownership and other rights in the RSS Content, and any and all CNN logos and trademarks used in connection with the RSS Service. You must provide attribution to the appropriate CNN website in connection with your use of the RSS feeds. If you provide this attribution using a graphic, you must use the appropriate CNN website's logo that we have incorporated into the RSS feed.
+</div>
+<br>
+<b>Right to Discontinue Feeds:</b><br>
+<div style="padding-left:10px;">
+CNN reserves the right to discontinue providing any or all of the RSS feeds at any time and to require you to cease displaying, distributing or otherwise using any or all of the RSS feeds for any reason including, without limitation, your violation of any provision of these Terms of Use. CNN assumes no liability for any of your activities in connection with the RSS feeds or for your use of the RSS feeds in connection with your website.
+</div>
+<br>
+
+</div>
+
+<!-- /CONTENT ENDS HERE -->
+</div>
+							
+							<div class="clear"><img src="http://i.cdn.turner.com/cnn/images/1.gif" width="1" height="1" border="0" alt=""></div>
+							
+			</div>
+						
+			<div class="cnnWCBoxFooter"><img src="http://i.cdn.turner.com/cnn/.element/img/2.0/mosaic/base_skins/baseplate/corner_dg_BL.gif" width="4" height="4" border="0" alt=""></div>
+				
+		</div><!-- /cnnWCBox -->
+					
+		<div class="clear"><img src="http://i.cdn.turner.com/cnn/images/1.gif" width="1" height="1" border="0" alt=""></div>
+
+	</div><!-- /main content -->
+	
+
+<script>var CNN = CNN || {}; </script>
+<div class="cnn-js-chrome-wrapper">
+    <div class="cnn-js-navigation" data-type="footer"></div>
+</div>
+<script src="http://z.cdn.turner.com/analytics/cnnexpan/jsmd.min.js" charset="utf-8"></script>
+
+<script>
+var cnn_metadata = cnn_metadata || {};
+cnn_metadata.template_type_content = cnn_metadata.template_type_content || '';
+CNN.omniture = CNN.omniture || {};
+CNN.omniture.template_type = CNN.omniture.template_type || '';
+var jsmd = _jsmd.init(),
+    pageURL = location.href.toLowerCase();
+if (pageURL.indexOf("/.element/ssi/ads.iframes/") === -1 && pageURL.indexOf("/doubleclick/dartiframe.html") === -1) {
+    if (pageURL.indexOf("cnn.com/search") === -1 || pageURL.indexOf("/search/") === -1) {
+        if (_jsmd.plugin.gQuery("refresh")) {
+            jsmd.trackMetrics("dynamic-autoRefresh", "autorefresh", "cnn-autorefresh");
+        } else if (_jsmd.plugin.gQuery("is_LR")) {
+            //do nothing
+        } else if (CNN.omniture.template_type !== "gallery" || cnn_metadata.template_type_content != "gallery") {
+            jsmd.send();
+        }
+    }
+}
+</script>
+
+
+
+
+
+
+
+
+
+</div>
+<img src="http://i.cdn.turner.com/cnn/images/1.gif" alt="" id="TargetImage" name="TargetImage" width="1" height="1" onLoad="getAdHeadCookie(this)"><img src="http://i.cdn.turner.com/cnn/images/1.gif" alt="" id="TargetImageDE" name="TargetImageDE" width="1" height="1" onLoad="getDEAdHeadCookie(this)">
+
+
+
+</div><!-- /cnnContainer -->
+
+</body>
+</html>
+

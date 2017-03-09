@@ -6,7 +6,7 @@ import java.io.*;
  * @author Michael MacLean
  * @version 1.0
  * @since 1.0
- * To do: resolve paths based on OS
+ * //TODO: resolve paths based on OS
  */
 public class Settings implements Serializable {
 
