@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.format.DateTimeParseException;
+import javax.swing.*;
 
 import org.w3c.dom.*;
 
@@ -73,6 +74,13 @@ public class Story implements Serializable {
      * Unsaved stories could fall off if the user-defined story cap is reached.
      */
     public void toggleSaved(){ saved = !saved; }
+
+    /**
+     * Returns a GUI component containing the HTML rendering of the feed url
+     * @return a GUI component
+     *
+    public JComponent fullHTMLDisplay(){
+    }*/
 
     /**
      * Generate a new story object based on a feed entry.
