@@ -279,4 +279,9 @@ public class Feed implements Serializable{
         return null;
 
     }
+
+    @Override
+    public boolean equals(Object o){
+        return (o instanceof Feed) && ((Feed) o).getLink().equalsIgnoreCase(getLink());
+    }
 }
