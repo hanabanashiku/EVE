@@ -1,6 +1,10 @@
 package edu.oakland.eve.rss;
 
+import java.io.Serializable;
+import java.util.Iterator;
 import java.util.LinkedList;
+
+import edu.oakland.eve.error.RSSClientException;
 
 /**
  * Provides an organizational structure for newsfeeds.
@@ -8,43 +12,57 @@ import java.util.LinkedList;
  * @version 1.0
  * @since 1.0
  */
-public class Category {
+public class Category implements Serializable, Iterable<Feed>{
     private String name;
-    private String description;
     private LinkedList<Feed> feeds;
     private RSSClient cli;
 
     /**
-     * @param feedName The name of the feed category.
+     * @param catName The name of the feed category.
      * @param rcli The RSS client instance
      */
-    protected Category(String feedName, RSSClient rcli){
-        name = feedName;
+    protected Category(String catName, RSSClient rcli) throws RSSClientException{
         cli = rcli;
+        setName(catName);
         feeds = new LinkedList<>();
+    }
+
+    public String getName() { return name; }
+    public void setName(String value) throws RSSClientException{
+        if(cli.getCategory(value) != null)
+            throw new RSSClientException("A category already exists with the given name.");
+        name = value;
     }
 
     /**
-     * @param feedName The name of the feed category
-     * @param desc The feed category description
-     * @param rcli The RSS client instance
+     * Determine whether or not the feed exists within the RSS Client.
+     * @param f The feed object to check
+     * @return true if the feed is contained in the category.
+     * note: uses .equals() for comparisons
      */
-    protected Category(String feedName, String desc, RSSClient rcli){
-        name = feedName;
-        description = desc;
-        cli = rcli;
-        feeds = new LinkedList<>();
+    public boolean contains(Feed f){
+        return feeds.contains(f);
     }
-
     /**
      * Add a feed to the category, and to the client if it does not exist
      * @param f The feed to add
+     * @returns true on success
      */
-    public void addFeed(Feed f){
-        if(!cli.contains(f)) cli.addFeed(f);
+    public boolean add(Feed f){
+        if(contains(f)) return false;
+        if(!cli.contains(f)) cli.add(f);
         feeds.add(f);
+        return true;
     }
 
+    /**
+     * Removes a feed from the category.
+     * @param f The feed to remove
+     * @return true if the feed was removed successfully.
+     */
+    public boolean remove(Feed f){ return feeds.remove(f); }
+
+    public Iterator<Feed> iterator() { return feeds.iterator(); }
 
 }
 

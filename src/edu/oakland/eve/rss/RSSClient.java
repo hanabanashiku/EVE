@@ -2,7 +2,6 @@ package edu.oakland.eve.rss;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Dictionary;
 import java.io.*;
 
 import edu.oakland.eve.error.*;
@@ -32,38 +31,104 @@ public class RSSClient implements Serializable, Iterable<Feed>{
     public boolean contains(Feed f) { return allFeeds.contains(f); }
 
     /**
+     * Are there any feeds in the client?
+     * @return true if there are no feeds
+     */
+    public boolean isEmpty() { return allFeeds.size() == 0; }
+    /**
      * Add a feed to the client
      * @param f The feed to add
+     * @return true on success
      */
-    public void addFeed(Feed f){
-        if(!contains(f))
+    public boolean add(Feed f){
+        if(!contains(f)) {
             allFeeds.add(f);
+            return true;
+        }
+        return false;
     }
 
     /**
-     * Add a feed to a category
-     * @param f The feed to add
-     * @param catName The category to add it to
+     * Remove a feed from the client and all categories
+     * @param f The feed to remove
+     * @return true if the feed was removed successfully
      */
-    public void addFeed(Feed f, String catName){
-
+    public boolean remove(Feed f){
+        if(allFeeds.remove(f)){
+            for(Category c : categories)
+                c.remove(f);
+            return true;
+        }
+        return false;
     }
 
     /**
-     * Add a feed to a category
-     * @param f The feed to add
-     * @param c The category to add it to
+     * Get a feed from the client
+     * @param uri The feed URI
+     * @return The feed, or null on failure
      */
-    public void addFeed(Feed f, Category c){
-
+    public Feed get(String uri){
+        for(Feed f : this)
+           if(f.getLink().equalsIgnoreCase(uri))
+                return f;
+        return null;
     }
+
+    /**
+     * Pulls all latest stories from all feeds
+     * @throws RSSFormatException
+     * @throws IOException
+     */
+    public void pull() throws RSSFormatException, IOException{
+        for(Feed f : this)
+            f.pull();
+    }
+
+    /**
+     * Find a category by name
+     * @param catName The name of the category
+     * @return The category, or null on failure
+     */
+    public Category getCategory(String catName){
+        for(Category c : categories)
+            if(c.getName().equals(catName))
+                return c;
+        return null;
+    }
+
+    /**
+     * Create a new empty category
+     * @param catName The name of the category
+     * @throws RSSClientException if the category already exists
+     */
+    public void addCategory(String catName) throws RSSClientException{
+        if(getCategory(catName) != null) throw new RSSClientException("A category by the given name already exists.");
+        categories.add(new Category(catName, this));
+    }
+
+    /**
+     * Remove a category from the client
+     * @param c The category to remove
+     * @param removeAllFeeds If true, all instances of all the category's member feeds will be removed from the client.
+     * @returns True on success.
+     */
+    public boolean removeCategory(Category c, boolean removeAllFeeds){
+        if(!categories.contains(c)) return false;
+        categories.remove(c);
+        if(removeAllFeeds){
+            for(Feed f : c)
+                remove(f);
+        }
+        return true;
+    }
+    public boolean removeCategory(Category c) { removeCategory(c, false); }
 
     /**
      * Load the client instance
      * @return The existing instance, or a new instance if there is none.
      * @throws IOException if the versions are incompaatible
      */
-    public RSSClient load() throws IOException{
+    public static RSSClient load() throws IOException{
         if(!new File(FNAME).exists()) return new RSSClient();
         try {
             FileInputStream fstream = new FileInputStream(FNAME);

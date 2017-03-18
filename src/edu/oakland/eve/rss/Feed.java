@@ -27,10 +27,10 @@ public class Feed implements Serializable{
     private String link;
     private URL url;
     private String description;
-    private String imageurl;
+    private String imageUrl;
     private boolean isAtomFeed;
     private String category;
-    private Stack<Story> stories = new Stack<Story>();
+    private Stack<Story> stories = new Stack<>();
 
     /**
      * @return The feed name provided by the user
@@ -60,7 +60,7 @@ public class Feed implements Serializable{
     /**
      * @return The feed image URL
      */
-    public String getImageurl() { return imageurl; }
+    public String getImageUrl() { return imageUrl; }
 
     /***
      * Fetch the image from the feed's specified image URL and return it
@@ -68,7 +68,7 @@ public class Feed implements Serializable{
      * TODO: Implement image caching if performance is an issue
      */
     public Image getImage(){
-        try{ return ImageIO.read(new URL(imageurl)); }
+        try{ return ImageIO.read(new URL(imageUrl)); }
         catch(Exception e){ return null; }
     }
 
@@ -128,7 +128,7 @@ public class Feed implements Serializable{
             }
 
             updateMetaData(doc);
-            pullLatestStories();
+            pull();
             name = title;
             category = null;
         }
@@ -220,18 +220,18 @@ public class Feed implements Serializable{
         // image tag
         if(isAtomFeed){
             nl = doc.getElementsByTagName("logo");
-            if(nl.getLength() == 0) imageurl = "";
-            else imageurl = nl.item(0).getTextContent();
+            if(nl.getLength() == 0) imageUrl = "";
+            else imageUrl = nl.item(0).getTextContent();
         }
         else{
             nl = doc.getElementsByTagName("image");
-            imageurl = "";
+            imageUrl = "";
             if(nl.getLength() != 0) {
                 nl = nl.item(0).getChildNodes();
                 for(int i = 0; i < nl.getLength(); i++){
                     Node n = nl.item(i);
                     if(n.getNodeName().equals("link")){
-                        imageurl = n.getTextContent();
+                        imageUrl = n.getTextContent();
                         break;
                     }
                 } // for
@@ -241,11 +241,10 @@ public class Feed implements Serializable{
 
     /**
      * Update the feed's stories
-     * @throws RSSFormatException
-     * @throws IOException
-     * @throws MalformedURLException
+     * @throws RSSFormatException on RSS parse error
+     * @throws IOException if the feed could not be accessed
      */
-    public void pullLatestStories() throws RSSFormatException, IOException{
+    public void pull() throws RSSFormatException, IOException{
       NodeList nl;
       Document doc;
       try { doc = parse(); }
