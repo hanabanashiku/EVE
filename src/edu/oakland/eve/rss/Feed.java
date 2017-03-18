@@ -29,7 +29,6 @@ public class Feed implements Serializable{
     private String description;
     private String imageUrl;
     private boolean isAtomFeed;
-    private String category;
     private Stack<Story> stories = new Stack<>();
 
     /**
@@ -72,22 +71,6 @@ public class Feed implements Serializable{
         catch(Exception e){ return null; }
     }
 
-    /**
-     * @return Returns the feed category provided by the user
-     */
-    public String getCategory() { return category; }
-
-    /**
-     * Set the category of the feed. Feeds will be organized based on these categories.
-     * To mark the feed as uncategorized, set the {@code value} parameter to null.
-     * @param value The category to set the feed as.
-     */
-    public void setCategory(String value) {  category = value; }
-
-    /**
-     * Provides a suggested category based on the source feed
-     * @return The category, as defined by the source feed, or null if undefined.
-     */
     public String getSuggestedCategory() {
         try {
             Document doc = parse();
@@ -130,7 +113,6 @@ public class Feed implements Serializable{
             updateMetaData(doc);
             pull();
             name = title;
-            category = null;
         }
         catch(SAXException e) { throw new RSSFormatException(e.getMessage()); }
 
@@ -145,7 +127,6 @@ public class Feed implements Serializable{
      */
     public Feed(String feedURL, String cat) throws RSSFormatException, IOException{
         this(feedURL);
-        category = cat;
     }
 
     /**
@@ -159,7 +140,6 @@ public class Feed implements Serializable{
     public Feed(String feedURL, String feedName, String cat) throws RSSFormatException, IOException{
         this(feedURL);
         name = feedName;
-        category = cat;
     }
 
     // use this to parse the file
