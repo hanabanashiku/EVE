@@ -121,7 +121,7 @@ public class RSSClient implements Serializable, Iterable<Feed>{
         }
         return true;
     }
-    public boolean removeCategory(Category c) { removeCategory(c, false); }
+    public boolean removeCategory(Category c) { return removeCategory(c, false); }
 
     /**
      * Load the client instance

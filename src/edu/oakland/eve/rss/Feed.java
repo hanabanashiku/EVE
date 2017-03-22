@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.xml.parsers.*;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.Iterator;
 import java.util.Stack;
 
 import org.w3c.dom.*;
@@ -21,7 +22,7 @@ import edu.oakland.eve.error.RSSFormatException;
  * @version 1.0
  * @since 1.0
  */
-public class Feed implements Serializable{
+public class Feed implements Serializable, Iterable<Story>{
     private String name;
     private String title;
     private String link;
@@ -85,6 +86,15 @@ public class Feed implements Serializable{
     }
 
     /**
+     * @return The number of stories saved in the feed
+     */
+    public int count() { return stories.size(); }
+
+    /**
+     * @return true if there are no stories saved in the feed
+     */
+    public boolean isEmpty(){ return stories.isEmpty(); }
+    /**
      * Initialize a feed object
      * @param feedURL The URL to the RSS feed
      * @throws RSSFormatException if the given file is not an RSS or Atom feed
@@ -121,23 +131,11 @@ public class Feed implements Serializable{
     /**
      * Initialize a feed object
      * @param feedURL The URL to the RSS feed
-     * @param cat The category to place the feed into.
-     * @throws RSSFormatException if the given file is not an RSS or Atom feed
-     * @throws IOException if the URL could not be opened properly or if it was malformed.
-     */
-    public Feed(String feedURL, String cat) throws RSSFormatException, IOException{
-        this(feedURL);
-    }
-
-    /**
-     * Initialize a feed object
-     * @param feedURL The URL to the RSS feed
      * @param feedName The name to call the feed by.
-     * @param cat The category to place the feed into.
      * @throws RSSFormatException if the given file is not an RSS or Atom feed
      * @throws IOException if the URL could not be opened properly or if it was malformed.
      */
-    public Feed(String feedURL, String feedName, String cat) throws RSSFormatException, IOException{
+    public Feed(String feedURL, String feedName) throws RSSFormatException, IOException{
         this(feedURL);
         name = feedName;
     }
@@ -244,9 +242,32 @@ public class Feed implements Serializable{
     }
 
     /**
+     * Get a story by uri
+     * @param uri The uri to look for
+     * @return The story on success, or null on failure
+     */
+    public Story getStory(URL uri){
+        for(Story s : this)
+            if(s.getLink().sameFile(uri))
+                return s;
+        return null;
+    }
+
+    /**
+     * Get a story by uri
+     * @param uri The uri to look for
+     * @return The story on success, or null on failure
+     * @throws MalformedURLException
+     */
+    public Story getStory(String uri) throws MalformedURLException{
+        return getStory(new URL(uri));
+    }
+
+    /**
      * Delete a story from the list of stories.
      * @param s The story to delete
      * @return true on success
+     * TODO: If the first story was deleted, it will come back when new stories are pulled.
      */
     public boolean deleteStory(Story s){
         return stories.remove(s);
@@ -258,6 +279,8 @@ public class Feed implements Serializable{
         return null;
 
     }
+
+    public Iterator<Story> iterator(){ return stories.iterator(); }
 
     @Override
     public boolean equals(Object o){

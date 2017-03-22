@@ -63,24 +63,22 @@ public class Story implements Serializable {
     public void toggleRead() { read = !read; }
 
     /**
-     * Saving a story will protect it from deletion.
-     * Saved stories are viewable in a special list.
-     * @return true if the story is saved
-     */
-    public boolean isSaved() { return saved; }
-
-    /**
-     * Set the story to be saved if not saved, and vice versa.
-     * Unsaved stories could fall off if the user-defined story cap is reached.
-     */
-    public void toggleSaved(){ saved = !saved; }
-
-    /**
      * Returns a GUI component containing the HTML rendering of the feed url
      * @return a GUI component
      *
     public JComponent fullHTMLDisplay(){
     }*/
+
+    /**
+     * Print the story contents to the commandline. Mostly for testing purposes.
+     * For GUI applications, we prefer fullHTMLDisplay()
+     */
+    public void print(){
+        System.out.println(title + " : " + link + " : " + pubDate);
+        System.out.println(author);
+        System.out.println(description);
+        System.out.println("Read: " + read);
+    }
 
     /**
      * Generate a new story object based on a feed entry.
