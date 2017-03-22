@@ -7,7 +7,6 @@ import edu.oakland.eve.rss.Feed;
 import edu.oakland.eve.rss.Story;
 
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * @author Michael MacLean

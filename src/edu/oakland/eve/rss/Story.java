@@ -22,6 +22,7 @@ import edu.oakland.eve.error.RSSFormatException;
 public class Story implements Serializable {
     private String title;
     private URL link;
+    private String feed;
     private String description;
     private String author;
     private LocalDateTime pubDate;
@@ -36,6 +37,11 @@ public class Story implements Serializable {
      * @return The website URL of the story
      */
     public URL getLink() { return link; }
+
+    /**
+     * @return The URL of the feed that the story was pulled from.
+     */
+    public String getFeed(){ return feed; }
 
     /**
      * @return The story description
@@ -59,6 +65,7 @@ public class Story implements Serializable {
 
     /**
      * Set the story as ready if unread, and vice versa.
+     * Setting this property is up to the discretion of the EVE interface.
      */
     public void toggleRead() { read = !read; }
 
@@ -85,7 +92,8 @@ public class Story implements Serializable {
      * @param item an entry from a feed
      * @throws RSSFormatException if an entry does not meet specifications.
      */
-    protected Story(Node item, boolean isAtomNode) throws RSSFormatException{
+    protected Story(Node item, String origfeed, boolean isAtomNode) throws RSSFormatException{
+        feed = origfeed;
         NodeList nl = item.getChildNodes();
         if(isAtomNode){
             for(int i = 0; i < nl.getLength(); i++){

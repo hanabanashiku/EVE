@@ -16,6 +16,7 @@ public class RSSClient implements Serializable, Iterable<Feed>{
     private static final String FNAME = "rss_cli.db";
     private LinkedList<Feed> allFeeds;
     private LinkedList<Category> categories;
+    private LinkedList<Story> saved;
 
     private RSSClient(){
         allFeeds = new LinkedList<Feed>();
@@ -138,8 +139,42 @@ public class RSSClient implements Serializable, Iterable<Feed>{
         catch(ClassNotFoundException e) { throw new IOException("Incompatible RSSClient version."); }
     }
 
+    /**
+     * Save a story for later viewing.
+     * @param s The story to save
+     */
+    public void saveStory(Story s){
+        saved.add(s);
+    }
+
+    /**
+     * Remove a story from the list of saved stories.
+     * @param s The story to remove
+     * @return true on success
+     */
+    public boolean removeSavedStory(Story s){
+        return saved.remove(s);
+    }
+
+    public LinkedList<Story> getSavedStories(Feed f){ return getSavedStories(f.getLink()); }
+    /**
+     * Get all saved stories that were from a feed
+     * @param url The url of the feed to pull from
+     * @return A linked list containing all pertinent feeds, or null if none exist.
+     */
+    public LinkedList<Story> getSavedStories(String url){
+        LinkedList<Story> ret = new LinkedList<>();
+        while(savedStoryIterator().hasNext()){
+            Story s = savedStoryIterator().next();
+            if(s.getFeed().equalsIgnoreCase(url)) ret.add(s);
+        }
+        if(ret.isEmpty()) return null;
+        else return ret;
+    }
+
     public Iterator<Feed> iterator() { return allFeeds.iterator(); }
     public Iterator<Category> categoryIterator() { return categories.iterator(); }
+    public Iterator<Story> savedStoryIterator(){ return saved.iterator(); }
 
     /**
      * Save the client instance

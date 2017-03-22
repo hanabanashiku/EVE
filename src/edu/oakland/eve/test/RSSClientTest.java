@@ -1,6 +1,7 @@
 package edu.oakland.eve.test;
 
 import edu.oakland.eve.rss.Feed;
+import edu.oakland.eve.rss.Story;
 import org.junit.*;
 import edu.oakland.eve.rss.RSSClient;
 
@@ -92,4 +93,30 @@ public class RSSClientTest {
         Assert.assertNull(cli.getCategory("Sports"));
     }
 
+    @Test
+    public void saveStory() throws Exception{
+        Feed f = new Feed(testFeeds[0]);
+        Assert.assertFalse(f.isEmpty());
+        cli.add(f);
+        Assert.assertTrue(cli.contains(f));
+        for(Story s : f){
+            cli.saveStory(s);
+            Assert.assertTrue(cli.getSavedStories(f).contains(s));
+        }
+    }
+
+    @Test
+    public void removeSavedStory() throws Exception{
+        Feed f = new Feed(testFeeds[0]);
+        Assert.assertFalse(f.isEmpty());
+        cli.add(f);
+        Assert.assertTrue(cli.contains(f));
+        for(Story s : f)
+            cli.saveStory(s);
+
+        for(Story s : f){
+            Assert.assertTrue(cli.removeSavedStory(s));
+            Assert.assertFalse(cli.getSavedStories(f).contains(s));
+        }
+    }
 }

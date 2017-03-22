@@ -237,9 +237,17 @@ public class Feed implements Serializable, Iterable<Story>{
         // we caught up to the previous story
         if(!stories.empty() && first.getLink().sameFile(new URL(link)))
           break;
-        stories.push(new Story(n, isAtomFeed));
+        stories.push(new Story(n, link, isAtomFeed));
       }
     }
+
+    /**
+     * Returns whether or not a story is contained in the current feed.
+     * @param s The story to look for
+     * @return true if the story is in the feed.
+     */
+
+    public boolean contains(Story s) { return stories.contains(s); }
 
     /**
      * Get a story by uri
