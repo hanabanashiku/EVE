@@ -1,5 +1,7 @@
 package edu.oakland.eve.rss;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.io.*;
@@ -21,6 +23,7 @@ public class RSSClient implements Serializable, Iterable<Feed>{
     private RSSClient(){
         allFeeds = new LinkedList<Feed>();
         categories = new LinkedList<>();
+        saved = new LinkedList<>();
     }
 
     /**
@@ -67,10 +70,11 @@ public class RSSClient implements Serializable, Iterable<Feed>{
      * Get a feed from the client
      * @param uri The feed URI
      * @return The feed, or null on failure
+     * @throws MalformedURLException
      */
-    public Feed get(String uri){
+    public Feed get(String uri) throws MalformedURLException{
         for(Feed f : this)
-           if(f.getLink().equalsIgnoreCase(uri))
+            if (f.getURL().sameFile(new URL(uri)))
                 return f;
         return null;
     }
@@ -156,20 +160,22 @@ public class RSSClient implements Serializable, Iterable<Feed>{
         return saved.remove(s);
     }
 
-    public LinkedList<Story> getSavedStories(Feed f){ return getSavedStories(f.getLink()); }
+    public LinkedList<Story> getSavedStories(Feed f) {
+        return getSavedStories(f.getURL().toString());
+    }
     /**
      * Get all saved stories that were from a feed
      * @param url The url of the feed to pull from
-     * @return A linked list containing all pertinent feeds, or null if none exist.
+     * @return A linked list containing all pertinent feeds.
      */
     public LinkedList<Story> getSavedStories(String url){
         LinkedList<Story> ret = new LinkedList<>();
-        while(savedStoryIterator().hasNext()){
-            Story s = savedStoryIterator().next();
+        Iterator<Story> it = savedStoryIterator();
+        while(it.hasNext()){
+            Story s = it.next();
             if(s.getFeed().equalsIgnoreCase(url)) ret.add(s);
         }
-        if(ret.isEmpty()) return null;
-        else return ret;
+        return ret;
     }
 
     public Iterator<Feed> iterator() { return allFeeds.iterator(); }

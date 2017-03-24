@@ -53,6 +53,11 @@ public class Feed implements Serializable, Iterable<Story>{
     public String getLink() { if(link.equals("")) return null; return link; }
 
     /**
+     * @return The RSS feed url object.
+     */
+    public URL getURL() { return url; }
+
+    /**
      * @return The feed description
      */
     public String getDescription() { return description; }
@@ -115,8 +120,9 @@ public class Feed implements Serializable, Iterable<Story>{
             // Atom feeds use the parent tag, <feed>, while RSS feeds utilize the <channel> tag,
             // which is always the first and only child off the <rss> tag.
             if(!isAtomFeed){
-                channel = channel.getFirstChild();
-                if(!channel.getNodeName().equalsIgnoreCase("channel"))
+                if(!channel.getNodeName().equalsIgnoreCase("rss")) throw new RSSFormatException("RSS tag was misnamed or does not exist");
+                channel = getElementByName(channel.getChildNodes(), "channel");
+                if(channel == null)
                     throw new RSSFormatException("Channel tag was misnamed or does not exist.");
             }
 
@@ -230,23 +236,26 @@ public class Feed implements Serializable, Iterable<Story>{
       if(isAtomFeed) nl = doc.getElementsByTagName("entry");
       else nl = doc.getElementsByTagName("item");
 
-      Story first = stories.peek();
+      Story first = stories.isEmpty() ? null : stories.peek();
       for(int i = 0; i < nl.getLength(); i++){
         Node n = nl.item(i);
         String link = (isAtomFeed) ? getElementByName(n.getChildNodes(), "id").getNodeValue() : getElementByName(n.getChildNodes(), "guid").getNodeValue();
         // we caught up to the previous story
-        if(!stories.empty() && first.getLink().sameFile(new URL(link)))
+        if(first != null && first.getLink().sameFile(new URL(link)))
           break;
-        stories.push(new Story(n, link, isAtomFeed));
+        stories.push(new Story(n, url.toString()));
       }
     }
 
+    /**
+     * @return The number of stories in the feed
+     */
+    public int size(){ return stories.size(); }
     /**
      * Returns whether or not a story is contained in the current feed.
      * @param s The story to look for
      * @return true if the story is in the feed.
      */
-
     public boolean contains(Story s) { return stories.contains(s); }
 
     /**
@@ -254,7 +263,7 @@ public class Feed implements Serializable, Iterable<Story>{
      * @param uri The uri to look for
      * @return The story on success, or null on failure
      */
-    public Story getStory(URL uri){
+    public Story get(URL uri){
         for(Story s : this)
             if(s.getLink().sameFile(uri))
                 return s;
@@ -267,8 +276,18 @@ public class Feed implements Serializable, Iterable<Story>{
      * @return The story on success, or null on failure
      * @throws MalformedURLException
      */
-    public Story getStory(String uri) throws MalformedURLException{
-        return getStory(new URL(uri));
+    public Story get(String uri) throws MalformedURLException{
+        return get(new URL(uri));
+    }
+
+    /**
+     * Get a story by index number, starting from 0
+     * @param i The 0-based index
+     * @return The story
+     * @throws IndexOutOfBoundsException
+     */
+    public Story get(int i) throws IndexOutOfBoundsException {
+        return stories.get(i);
     }
 
     /**

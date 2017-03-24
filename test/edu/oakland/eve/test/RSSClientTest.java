@@ -46,6 +46,7 @@ public class RSSClientTest {
     @Test // Precondition: get(), Feed() passes.
     public void add() throws Exception {
         for(String url : testFeeds){
+            System.out.println(url);
             cli.add(new Feed(url));
             Assert.assertNotNull(cli.get(url));
         }
@@ -98,10 +99,13 @@ public class RSSClientTest {
         Feed f = new Feed(testFeeds[0]);
         Assert.assertFalse(f.isEmpty());
         cli.add(f);
+        System.out.println("Adding " + f.getName());
         Assert.assertTrue(cli.contains(f));
         for(Story s : f){
+            System.out.printf("Saving story " + s.getTitle() + " from " + f.getName());
             cli.saveStory(s);
-            Assert.assertTrue(cli.getSavedStories(f).contains(s));
+            System.out.println("Checking if we have it...");
+            Assert.assertNotNull(cli.getSavedStories(f).contains(s));
         }
     }
 
