@@ -69,7 +69,7 @@ public class CalendarAPI{
 	 * @throws IOException
 	 */
 	public static Credential authorize() throws IOException{
-		InputStream in = Calendar.class.getResourceAsStream("/client_secret.json");
+		InputStream in = Calendar.class.getResourceAsStream("resources/client_secret.json");
 		GoogleClientSecrets secrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(in));
 
 		GoogleAuthorizationCodeFlow flow =
@@ -88,18 +88,19 @@ public class CalendarAPI{
 	 * @return an authorized Calendar client service
 	 * @throws IOException
 	 */
-	public static com.google.api.services.calendar.Calendar getCalendarService() throws IOException{
+	private static com.google.api.services.calendar.Calendar getCalendarService() throws IOException{
 		Credential cred = authorize();
 		return new com.google.api.services.calendar.Calendar.Builder(
 				http, jsonFactory, cred).setApplicationName(Program.APP_NAME)
 				.build();
 	}
 
-	public CalendarAPI(){
-		try {
-			client = getCalendarService();
-		}
-		catch(IOException e) { e.printStackTrace(); }
+	/**
+	 * Create a new calendar API instance
+	 * @throws IOException
+	 */
+	public CalendarAPI() throws IOException{
+		client = getCalendarService();
 	}
 
 	/***
@@ -109,6 +110,10 @@ public class CalendarAPI{
 	 */
 	public CalendarList fetchCalendars() throws IOException{
 		return client.calendarList().list().execute();
+	}
+
+	public Calendar fetchCalendar(String id) throws IOException{
+		return client.calendars().get(id).execute();
 	}
 
 	/***
@@ -123,14 +128,14 @@ public class CalendarAPI{
 	}
 
 	/***
-	 *
-	 * @param original The original calendar from the client
+	 * Update a calendar
+	 * @param id The original calendar id from the client
 	 * @param update The update calendar to replace with
 	 * @return The updated caledar from the client
 	 * @throws IOException
 	 */
-	public Calendar updateCalendar(Calendar original, Calendar update) throws IOException{
-		return client.calendars().patch(original.getId(), update).execute();
+	public Calendar updateCalendar(String id, Calendar update) throws IOException{
+		return client.calendars().patch(id, update).execute();
 	}
 
 	/***
@@ -151,7 +156,7 @@ public class CalendarAPI{
 	 * @param timeZone The applicable timezone
 	 * @return The new event
 	 */
-	public Event newEvent(String summary, Date start, Date end, TimeZone timeZone){
+	public static Event newEvent(String summary, Date start, Date end, TimeZone timeZone){
 		Event event = new Event();
 		event.setSummary(summary);
 		event.setStart(new EventDateTime().setDateTime(new DateTime(start, timeZone)));
@@ -166,26 +171,51 @@ public class CalendarAPI{
 	 * @param end The event's end time
 	 * @return The new event
 	 */
-	public Event newEvent(String summary, Date start, Date end){ return newEvent(summary, start, end, TimeZone.getDefault()); }
+	public static Event newEvent(String summary, Date start, Date end){ return newEvent(summary, start, end, TimeZone.getDefault()); }
 
 	/**
 	 * List all events from a calendar
-	 * @param calendar
+	 * @param id the id of the calendar to list from.
 	 * @return An iterable list of events
 	 * @throws IOException
 	 */
-	public Events showEvents(Calendar calendar) throws IOException{
-		return client.events().list(calendar.getId()).execute();
+	public Events showEvents(String id) throws IOException{
+		return client.events().list(id).execute();
+	}
+
+	/**
+	 * List all events from a calendar
+	 * @param c the calendar to list from
+	 * @return An iterable list of events
+	 * @throws IOException
+	 */
+	public Events showEvents(Calendar c) throws IOException{
+		return showEvents(c.getId());
+	}
+
+	public Event fetchEvent(String id, String summary) throws IOException{
+		Events ev = showEvents(id);
+		for(Event e : ev.getItems()){
+			if(e.getSummary().equalsIgnoreCase(summary)) return e;
+		}
+		return null;
 	}
 
 	/***
 	 * Delete a calendar from the client
-	 * @param calendar The calendar to delete
+	 * @param id The id of the calendar to delete
 	 * @throws IOException
 	 */
-	public void deleteCalendar(Calendar calendar) throws IOException{
-		client.calendars().delete(calendar.getId()).execute();
+	public void deleteCalendar(String id) throws IOException{
+		client.calendars().delete(id).execute();
 	}
+
+	/**
+	 * Delete a calendar from the client
+	 * @param c The calendar to delete
+	 * @throws IOException
+	 */
+	public void deleteCalendar(Calendar c) throws IOException { deleteCalendar(c.getId()); }
 
 
 }
