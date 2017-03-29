@@ -6,8 +6,6 @@ import edu.oakland.eve.api.CalendarAPI;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
-
 /**
  * @author Michael MacLean
  * @version 1.0
@@ -40,7 +38,7 @@ public class CalendarAPITest {
     public void updateCalendar() throws Exception {
         Calendar testcal = cal.addCalendar("Test");
         Assert.assertNotNull(testcal);
-        Assert.assertFalse(testcal.getDescription().equals("A test of the calendar system."));
+        Assert.assertNull(testcal.getDescription());
         testcal.setDescription("A test of the calendar system.");
         cal.updateCalendar(testcal.getId(), testcal);
         testcal = cal.fetchCalendar(testcal.getId());

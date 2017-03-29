@@ -9,6 +9,7 @@ import com.google.api.client.googleapis.batch.BatchRequest;
 import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonError;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -32,13 +33,10 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /***
+ * A class for managing Google Calendar API calls
  * @author Michael MacLean
  * @version 1.0
  * @since 1.0
- */
-
-/***
- * A class for managing Google Calendar API calls
  */
 
 public class CalendarAPI{
@@ -69,7 +67,7 @@ public class CalendarAPI{
 	 * @throws IOException
 	 */
 	public static Credential authorize() throws IOException{
-		InputStream in = Calendar.class.getResourceAsStream("resources/client_secret.json");
+		InputStream in = CalendarAPI.class.getResourceAsStream("resources/client_secret.json");
 		GoogleClientSecrets secrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(in));
 
 		GoogleAuthorizationCodeFlow flow =
@@ -113,7 +111,9 @@ public class CalendarAPI{
 	}
 
 	public Calendar fetchCalendar(String id) throws IOException{
-		return client.calendars().get(id).execute();
+		try {
+			return client.calendars().get(id).execute();
+		} catch(GoogleJsonResponseException e) { return null; }
 	}
 
 	/***
