@@ -1,5 +1,5 @@
 # EVE
-A
+
 EVE is an assitant application for desktop and Android.
 
 Currently planned features:
