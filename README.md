@@ -1,6 +1,6 @@
 # EVE
 
-EVE is an assitant application for desktop and Android.
+EVE is an assistant application for desktop and Android.
 
 Currently planned features:
 - RSS Feed management
