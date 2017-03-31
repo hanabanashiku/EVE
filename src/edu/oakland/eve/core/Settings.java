@@ -35,9 +35,9 @@ public class Settings implements Serializable {
 	}
 
 	/***
-	* Close the instance and save to disk
+	* Save the settings instance to disk
 	*/
-	public void close(){
+	public void save(){
 		try{
 			FileOutputStream fout = new FileOutputStream(filename);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
