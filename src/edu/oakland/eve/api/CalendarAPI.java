@@ -68,6 +68,7 @@ public class CalendarAPI{
 	 */
 	public static Credential authorize() throws IOException{
 		InputStream in = CalendarAPI.class.getResourceAsStream("resources/client_secret.json");
+		if(in == null) throw new IOException("Client information not found.");
 		GoogleClientSecrets secrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(in));
 
 		GoogleAuthorizationCodeFlow flow =

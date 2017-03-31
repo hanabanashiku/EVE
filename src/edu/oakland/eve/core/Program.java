@@ -16,7 +16,6 @@ import java.io.IOException;
 public class Program {
     public static final String APP_NAME = "EVE";
     public static Settings settings;
-    private static MainWindow mainw;
     public static CalendarAPI calendars;
     public static RSSClient rss;
     
@@ -42,7 +41,7 @@ public class Program {
 		}
 
 		if(!System.getProperty("java.runtime.name").equalsIgnoreCase("android runtime")){
-			mainw = new MainWindow();
+			JFrame mainw = new MainWindow();
 		}
 
 		/* ********************* *

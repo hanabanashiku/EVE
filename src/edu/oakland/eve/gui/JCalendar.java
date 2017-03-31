@@ -4,9 +4,10 @@ import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
 
-import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.Calendar;
 
 
 
@@ -32,6 +33,13 @@ public class JCalendar extends JPanel{
         javacal = new GregorianCalendar(); // get a Calendar with today's date.
         javacal.set(java.util.Calendar.DAY_OF_MONTH, 1); // always use the first
 
+        // set the name of the tab
+        if(c.getDescription() == null) setName("Untitled");
+        else setName(c.getDescription());
+
+        // set padding: bottom, left, right, top
+        setBorder(new EmptyBorder(10, 15, 15, 25));
+        
         backButton = new JButton();
         backButton.setIcon(new ImageIcon("resources/arrow-thick-left.png"));
         backButton.addActionListener(e -> flipBack());
