@@ -49,6 +49,6 @@ public class Settings implements Serializable {
 	}
 	
 	// called by the garbage collector
-	protected void finalize() { close(); }
+	protected void finalize() { save(); }
 
 }

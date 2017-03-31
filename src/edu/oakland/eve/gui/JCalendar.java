@@ -31,18 +31,33 @@ public class JCalendar extends JPanel{
         cal = c; // give an instance of the calendar
         javacal = new GregorianCalendar(); // get a Calendar with today's date.
         javacal.set(java.util.Calendar.DAY_OF_MONTH, 1); // always use the first
-        this.setLayout(new BorderLayout());
+
         backButton = new JButton();
         backButton.setIcon(new ImageIcon("resources/arrow-thick-left.png"));
         backButton.addActionListener(e -> flipBack());
+
         forwardButton = new JButton();
         forwardButton.setIcon(new ImageIcon("resources/arrow-thick-right.png"));
         forwardButton.addActionListener(e ->flipForward());
+
         title = new JLabel();
         title.setHorizontalAlignment(SwingConstants.CENTER);
         setHeader();
+
         model = new DefaultTableModel(null, columns);
         table = new JTable(model);
+
+        //pack the elements
+        this.setLayout(new BorderLayout());
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(backButton, BorderLayout.WEST);
+        panel.add(title, BorderLayout.CENTER);
+        panel.add(forwardButton, BorderLayout.EAST);
+        this.add(panel, BorderLayout.NORTH);
+        this.add(table, BorderLayout.CENTER);
+
+        // pull from the calendar
         populate();
     }
 
@@ -73,10 +88,11 @@ public class JCalendar extends JPanel{
         int start = javacal.get(java.util.Calendar.DAY_OF_WEEK);
         int max = javacal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
 
-        int i = start - 1;
-        //TODO: Continue
-        // http://www.javacodex.com/Swing/Swing-Calendar
-        for()
+        int j = start - 1; // day of the week
+        for(int i = 1; i <= max; i++){
+            //      value , day of the week, week
+            model.setValueAt(i, i/7, i%7);
+        }
     }
 
 }
