@@ -26,7 +26,14 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 import edu.oakland.eve.core.Program;
 
+import javax.swing.*;
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Date;
@@ -218,5 +225,29 @@ public class CalendarAPI{
 	 */
 	public void deleteCalendar(Calendar c) throws IOException { deleteCalendar(c.getId()); }
 
+	/**
+	 * Convert Google's rather strange and nonstandard solution to a format we can work with.
+	 * @param dt The original DateTime object
+	 * @return A parsed java LocalDate object
+	 */
+	public static LocalDate getDate(DateTime dt){
+		//String[] parsers = {"yyyy-MM-dd'T'HH:mm:ssXXX", "yyyd-MM-dd"};
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return LocalDate.parse(dt.toStringRfc3339(), f);
+	}
+
+	/**
+	 * Convert Google's rather strange and nonstandard solution to a format we can work with.
+	 * Note that this will return null if there is no time information
+	 * @param dt The original DateTime object
+	 * @return A parsed java LocalDateTime object
+	 */
+	public static LocalDateTime getDateTime(DateTime dt){
+		try {
+			DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
+			return LocalDateTime.parse(dt.toStringRfc3339(), f);
+		}
+		catch(Exception e) { return null; }
+	}
 
 }

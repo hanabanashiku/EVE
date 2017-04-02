@@ -104,6 +104,7 @@ public class MainWindow extends JFrame {
             }
         }
         catch(Exception e){
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Failed to pull calendars: " + e.getMessage(), "EVE Calendars", JOptionPane.ERROR_MESSAGE);
             return;
         }
