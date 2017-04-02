@@ -71,12 +71,12 @@ public class JCalendar extends JPanel{
         title.setHorizontalAlignment(SwingConstants.CENTER);
         setHeader();
 
-        model = new DefaultTableModel(null, columns);
+        model = new CalendarModel(null, columns);
         table = new JTable(model);
         table.setDefaultRenderer(Object.class, new CalendarRenderer());
         table.setRowHeight(50);
         table.setRowSelectionAllowed(false);
-        table.setEnabled(false); // no changing values
+        table.addMouseListener(new mouseHandler());
         pane = new JScrollPane(table);
 
         //pack the elements
@@ -117,7 +117,6 @@ public class JCalendar extends JPanel{
     // populate the table using events from the google calendar instance
     // http://www.javacodex.com/Swing/Swing-Calendar
     private void populate(){
-        //TODO: Remove this line if possible
         model.setRowCount(0); // reset the rows
         model.setRowCount(javacal.getActualMaximum(java.util.Calendar.WEEK_OF_MONTH));
         int start = javacal.get(DAY_OF_WEEK);
@@ -170,8 +169,35 @@ public class JCalendar extends JPanel{
     class CalendarRenderer implements TableCellRenderer{
         @Override
         public Component getTableCellRendererComponent(JTable jTable, Object o, boolean isSelected, boolean hasFocus, int r, int c) {
+            // If the cell is empty or not a CalendarCell, we will default to a blank JPanel.
+            // Setting this to return null instead will cause the window not to render properly
             if(!(o instanceof CalendarCell)) return new JPanel();
             else return (CalendarCell)o;
+        }
+    }
+
+    class CalendarModel extends DefaultTableModel{
+        public CalendarModel(Object[][] data, Object[] columnNames) { super(data, columnNames); }
+        @Override
+        public boolean isCellEditable(int row, int column){ return false; }
+    }
+
+    class mouseHandler extends MouseAdapter{
+        @Override
+        public void mousePressed(MouseEvent e){
+            int row = table.rowAtPoint(e.getPoint());
+            int col = table.columnAtPoint(e.getPoint());
+            // make sure it's in the table and the cell isn't a default JPanel
+            if(row >= 0 && col >= 0 && table.getValueAt(row, col) instanceof CalendarCell){
+                //TODO: Add implementations here
+                // Double click
+                if(e.getClickCount() == 2){
+                }
+                // Single click
+                else{
+                    CalendarCell cell = (CalendarCell)table.getValueAt(row, col);
+                }
+            }
         }
     }
 }

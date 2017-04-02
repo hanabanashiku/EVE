@@ -4,6 +4,9 @@ import com.google.api.services.calendar.model.Event;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * Represents a single sell of a calendar
@@ -14,7 +17,10 @@ import java.awt.*;
  */
 public class CalendarCell extends JPanel {
     private int Day;
+    private ArrayList<Event> events = new ArrayList<>();
+
     public int getDay() { return Day; }
+    public ArrayList<Event> getEvents() { return events; }
 
     public CalendarCell(int day){
         Day = day;
@@ -27,6 +33,9 @@ public class CalendarCell extends JPanel {
      * @param event the event to display
      */
     public void addEvent(Event event){
-        add(new JLabel(event.getSummary()), BorderLayout.CENTER);
+        events.add(event);
+        JLabel label = new JLabel(event.getSummary());
+        this.setToolTipText(event.getSummary());
+        add(label, BorderLayout.CENTER);
     }
 }
