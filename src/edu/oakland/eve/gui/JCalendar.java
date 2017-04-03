@@ -171,9 +171,15 @@ public class JCalendar extends JPanel{
     }
 
     private void addEvent(){
-        EventCreator dialog = new EventCreator(null, cal);
-        Event event = dialog.run();
-        if(event != null) populate();
+        Event event = new EventCreator((JFrame)SwingUtilities.getRoot(this)).run();
+        if(event == null) return;
+        try{
+            Program.calendars.addEvent(cal, event);
+        }
+        catch(IOException e){
+            JOptionPane.showMessageDialog((JFrame)SwingUtilities.getRoot(this), "Error creating event: " + e.getMessage(), "EVE Calendars", JOptionPane.ERROR_MESSAGE);
+        }
+        populate();
     }
 
     class CalendarRenderer implements TableCellRenderer{
