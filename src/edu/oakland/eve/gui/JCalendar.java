@@ -4,11 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.util.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
@@ -19,7 +16,6 @@ import com.google.api.services.calendar.model.Event;
 import edu.oakland.eve.api.CalendarAPI;
 import edu.oakland.eve.core.Program;
 
-import static java.lang.Math.ceil;
 import static java.util.Calendar.DAY_OF_WEEK;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
@@ -37,9 +33,11 @@ public class JCalendar extends JPanel{
     private JLabel title;
     private JButton backButton;
     private JButton forwardButton;
+    private JButton addButton;
     private JTable table;
     private JScrollPane pane;
     private DefaultTableModel model;
+    private EventContentPane eventPanel;
 
     private String[] columns = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 
@@ -56,20 +54,22 @@ public class JCalendar extends JPanel{
         setBorder(new EmptyBorder(10, 15, 15, 25));
 
         backButton = new JButton();
-        try {
-            backButton.setIcon(new ImageIcon(ImageIO.read(getClass().getResource("resources/arrow-thick-left.png"))));
-        } catch(Exception e){}
+        backButton.setIcon(new ImageIcon(JCalendar.class.getResource("resources/arrow-thick-left.png")));
         backButton.addActionListener(e -> flipBack());
 
         forwardButton = new JButton();
-        try {
-            forwardButton.setIcon(new ImageIcon(ImageIO.read(getClass().getResource("resources/arrow-thick-right.png"))));
-        } catch(Exception e){}
-            forwardButton.addActionListener(e ->flipForward());
+        forwardButton.setIcon(new ImageIcon(JCalendar.class.getResource("resources/arrow-thick-right.png")));
+        forwardButton.addActionListener(e -> flipForward());
+
+        addButton = new JButton();
+        addButton.setIcon(new ImageIcon(JCalendar.class.getResource("resources/plus.png")));
+        addButton.addActionListener(e -> addEvent());
 
         title = new JLabel();
         title.setHorizontalAlignment(SwingConstants.CENTER);
         setHeader();
+
+        eventPanel = new EventContentPane(cal);
 
         model = new CalendarModel(null, columns);
         table = new JTable(model);
@@ -78,6 +78,7 @@ public class JCalendar extends JPanel{
         table.setRowSelectionAllowed(false);
         table.addMouseListener(new mouseHandler());
         pane = new JScrollPane(table);
+
 
         //pack the elements
         this.setLayout(new BorderLayout());
@@ -88,6 +89,9 @@ public class JCalendar extends JPanel{
         panel.add(forwardButton, BorderLayout.EAST);
         this.add(panel, BorderLayout.NORTH);
         this.add(pane, BorderLayout.CENTER);
+        this.add(addButton, BorderLayout.EAST);
+        this.add(eventPanel, BorderLayout.SOUTH);
+        setPreferredSize(new Dimension(325, -1));
 
         // pull from the calendar
         populate();
@@ -116,7 +120,7 @@ public class JCalendar extends JPanel{
 
     // populate the table using events from the google calendar instance
     // http://www.javacodex.com/Swing/Swing-Calendar
-    private void populate(){
+    public void populate(){
         model.setRowCount(0); // reset the rows
         model.setRowCount(javacal.getActualMaximum(java.util.Calendar.WEEK_OF_MONTH));
         int start = javacal.get(DAY_OF_WEEK);
@@ -166,6 +170,12 @@ public class JCalendar extends JPanel{
         return ret;
     }
 
+    private void addEvent(){
+        EventCreator dialog = new EventCreator(null, cal);
+        Event event = dialog.run();
+        if(event != null) populate();
+    }
+
     class CalendarRenderer implements TableCellRenderer{
         @Override
         public Component getTableCellRendererComponent(JTable jTable, Object o, boolean isSelected, boolean hasFocus, int r, int c) {
@@ -177,7 +187,9 @@ public class JCalendar extends JPanel{
     }
 
     class CalendarModel extends DefaultTableModel{
-        public CalendarModel(Object[][] data, Object[] columnNames) { super(data, columnNames); }
+        public CalendarModel(Object[][] data, Object[] columnNames) {
+            super(data, columnNames);
+        }
         @Override
         public boolean isCellEditable(int row, int column){ return false; }
     }
@@ -189,14 +201,9 @@ public class JCalendar extends JPanel{
             int col = table.columnAtPoint(e.getPoint());
             // make sure it's in the table and the cell isn't a default JPanel
             if(row >= 0 && col >= 0 && table.getValueAt(row, col) instanceof CalendarCell){
-                //TODO: Add implementations here
-                // Double click
-                if(e.getClickCount() == 2){
-                }
-                // Single click
-                else{
-                    CalendarCell cell = (CalendarCell)table.getValueAt(row, col);
-                }
+                CalendarCell cell = (CalendarCell)table.getValueAt(row, col);
+                //TODO: support for more than one event
+                eventPanel.update(cell.getEvents().get(0));
             }
         }
     }

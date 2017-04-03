@@ -1,7 +1,5 @@
 package edu.oakland.eve.gui;
 
-import com.google.api.services.calendar.model.Calendar;
-import com.google.api.services.calendar.model.CalendarList;
 import com.google.api.services.calendar.model.CalendarListEntry;
 import edu.oakland.eve.core.Program;
 
@@ -17,7 +15,6 @@ import java.util.ArrayList;
  * @since 1.0
  */
 public class MainWindow extends JFrame {
-    private JPanel panel;
     private JTabbedPane calendartabs;
     private JPanel calendarpanel;
     private JPanel rsspanel;
@@ -109,6 +106,7 @@ public class MainWindow extends JFrame {
             return;
         }
     }
+
 }
 
 

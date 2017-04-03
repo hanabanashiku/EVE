@@ -156,6 +156,10 @@ public class CalendarAPI{
 		client.events().insert(calendar.getId(), event).execute();
 	}
 
+	public void removeEvent(Calendar calendar, Event event) throws IOException{
+		client.calendars().get(calendar.getId()).remove(event);
+	}
+
 	/**
 	 * Create a new event
 	 * @param summary The event's summary
