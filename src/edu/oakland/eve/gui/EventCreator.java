@@ -127,14 +127,14 @@ public class EventCreator extends JDialog {
     }
 
     private EventDateTime getStartTime(){
-        return getTime(startmonth, startday, startyear, starth, startap);
+        return getTime(startmonth, startday, startyear, starth, startap, allDayBox);
     }
 
     private EventDateTime getEndTime(){
-        return getTime(endmonth, endday, endyear, endhour, endap);
+        return getTime(endmonth, endday, endyear, endhour, endap, allDayBox);
     }
 
-    private EventDateTime getTime(JComboBox monthf, JComboBox dayf, JTextField yearf, JComboBox hourf, JComboBox apf){
+    static EventDateTime getTime(JComboBox monthf, JComboBox dayf, JTextField yearf, JComboBox hourf, JComboBox apf, JCheckBox allday){
         int month;
         // convert the month name to the number
         java.util.Calendar c = java.util.Calendar.getInstance();
@@ -152,7 +152,7 @@ public class EventCreator extends JDialog {
             JOptionPane.showMessageDialog(this, "Invalid year specified", "EVE Calendars", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        if(!allDayBox.isSelected()){
+        if(!allday.isSelected()){
             int hour = Integer.parseInt((String)hourf.getSelectedItem());
             boolean pm = apf.getSelectedItem().equals("PM");
             if(pm && hour != 12) hour -= 12;

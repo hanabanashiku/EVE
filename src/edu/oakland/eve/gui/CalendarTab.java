@@ -1,5 +1,6 @@
 package edu.oakland.eve.gui;
 
+import com.google.api.services.calendar.model.Calendar;
 import com.google.api.services.calendar.model.CalendarListEntry;
 import edu.oakland.eve.core.Program;
 
@@ -35,6 +36,11 @@ class CalendarTab extends JPanel {
             List<CalendarListEntry> cl = Program.calendars.fetchCalendars().getItems();
             for(CalendarListEntry c : cl){
                 tabs.add(new JCalendar(Program.calendars.fetchCalendar(c.getId())));
+                String text = "<html>";
+                if(c.getSummary() != null) text += c.getSummary() + "<br />";
+                if(c.getDescription() != null) text += c.getDescription();
+                text += "</html>";
+                if(!text.equals("<html></html>")) tabs.setToolTipTextAt(tabs.getTabCount() - 1, text);
             }
         }
         catch(Exception e){
@@ -43,10 +49,10 @@ class CalendarTab extends JPanel {
         }
     }
 
-    void deleteCalendar(JCalendar jCal){
+    void deleteCalendar(Calendar cal){
          if(JOptionPane.showConfirmDialog(this, "Delete the calendar?", "EVE Calendars", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
              try {
-                 Program.calendars.deleteCalendar(jCal.getCalender());
+                 Program.calendars.deleteCalendar(cal);
                  updateCalendars();
              }
              catch(IOException e){
@@ -59,10 +65,8 @@ class CalendarTab extends JPanel {
     class Listener extends MouseAdapter {
          public void mouseClicked(MouseEvent e){
              // right click
-             if(e.getButton() == 3){
-                 int n = tabs.getUI().tabForCoordinate(tabs, e.getX(), e.getY());
+             if(e.getButton() == 3)
                  new ContextMenu(tabs, e.getX(), e.getY());
-             }
          }
     }
 
@@ -72,8 +76,9 @@ class CalendarTab extends JPanel {
              JCalendar jCal = (JCalendar)comp.getComponentAt(comp.indexAtLocation(x, y));
              addEventItem.addActionListener(e -> jCal.addEvent());
              JMenuItem editItem = new JMenuItem("Edit Calendar");
+             editItem.addActionListener(e -> new CalendarEditor(CalendarTab.this, jCal.getCalender()).run());
              JMenuItem deleteItem = new JMenuItem("Delete Calendar");
-             deleteItem.addActionListener(e -> deleteCalendar(jCal));
+             deleteItem.addActionListener(e -> deleteCalendar(jCal.getCalender()));
              add(addEventItem);
              add(editItem);
              addSeparator();

@@ -51,6 +51,7 @@ public class JCalendar extends JPanel{
 
         // set the name of the tab
         if(c.getSummary() == null) setName("Untitled");
+        if(c.getSummary().length() > 20) setName(c.getSummary().substring(0, 20) + "...");
         else setName(c.getSummary());
 
         // set padding: bottom, left, right, top
