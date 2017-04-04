@@ -1,14 +1,17 @@
+package edu.oakland.eve.gui;
+
 import java.io.IOException;
 import org.xml.sax.SAXException;
 import javax.xml.transform.TransformerException;
 import javax.xml.parsers.ParserConfigurationException;
+import edu.oakland.eve.api.Weather;
 
 
 /**
- *
+ * A Weather panel
  * @author Murilo Delgado
  * @version 1.0
- * @date 4/4/17
+ * @since 1.0
  * JPanel for Weather Interface
  */
 public class WeatherUI extends javax.swing.JPanel {
