@@ -1,5 +1,6 @@
 package edu.oakland.eve.gui;
 
+import javax.swing.*;
 import java.io.IOException;
 import org.xml.sax.SAXException;
 import javax.xml.transform.TransformerException;
@@ -14,7 +15,7 @@ import edu.oakland.eve.api.Weather;
  * @since 1.0
  * JPanel for Weather Interface
  */
-public class WeatherUI extends javax.swing.JPanel {
+public class WeatherUI extends JPanel {
         private Weather forecast = new Weather("Detroit", 'F');
         
     public WeatherUI() throws IOException, SAXException, TransformerException, ParserConfigurationException{
