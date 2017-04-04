@@ -1,13 +1,10 @@
 package edu.oakland.eve.gui;
 
-import com.google.api.services.calendar.model.CalendarListEntry;
 import edu.oakland.eve.core.Program;
 
-import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 /**
  * @author Michael MacLean
@@ -15,14 +12,15 @@ import java.util.ArrayList;
  * @since 1.0
  */
 public class MainWindow extends JFrame {
-    private JTabbedPane calendartabs;
-    private JPanel calendarpanel;
+    private JMenuBar menuBar;
+    private JMenu fileMenu, calendarMenu, rssMenu, helpMenu;
+    private JMenuItem settingsItem, quitItem;
+    private JMenuItem addCalendarItem, refreshItem;
+    private JMenuItem aboutItem;
+    private CalendarTab calendarPanel;
     private JPanel rsspanel;
     private JPanel weatherpanel;
     private JTabbedPane tabs;
-    private JButton rsssettings;
-
-    private ArrayList<categoryPanel> catpanes;
 
     public MainWindow(){
         setTitle(Program.APP_NAME);
@@ -39,7 +37,8 @@ public class MainWindow extends JFrame {
                     "MainWindow: " + e.getMessage(),
                     "EVE Error",
                     JOptionPane.ERROR_MESSAGE);
-            exit();
+            dispose();
+            System.exit(-1);
         }
 
         //pack our elements
@@ -50,31 +49,41 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
-    public void exit(){
-        setVisible(false);
-        dispose();
-    }
-
     private void createWidgets(){
         tabs = new JTabbedPane();
-        calendarpanel = new JPanel();
-        calendartabs = new JTabbedPane();
+        calendarPanel = new CalendarTab();
         rsspanel = new JPanel();
         weatherpanel = new JPanel();
-
-        // hold all the RSS category panels here
-        catpanes = new ArrayList<>();
+        menuBar = new JMenuBar();
+        fileMenu = new JMenu("File");
+        settingsItem = new JMenuItem("Settings");
+        quitItem = new JMenuItem("Quit");
+        quitItem.addActionListener(e -> exit());
+        calendarMenu = new JMenu("Calendars");
+        addCalendarItem = new JMenuItem("Create Calendar");
+        addCalendarItem.addActionListener(e ->createCalendar());
+        refreshItem = new JMenuItem("Refresh Calendars");
+        refreshItem.addActionListener(e->refreshCalendars());
+        rssMenu = new JMenu("RSS");
+        helpMenu = new JMenu("Help");
+        aboutItem = new JMenuItem("About");
     }
 
     private void packWidgets(){
+        // pack the menu bar
+        fileMenu.add(settingsItem);
+        fileMenu.add(quitItem);
+        calendarMenu.add(refreshItem);
+        calendarMenu.add(addCalendarItem);
+        helpMenu.add(aboutItem);
+        menuBar.add(fileMenu);
+        menuBar.add(calendarMenu);
+        menuBar.add(rssMenu);
+        menuBar.add(helpMenu);
+        setJMenuBar(menuBar);
+
         // pack the calendar tab
-        calendarpanel.setName("Calendar");
-        calendarpanel.setLayout(new BorderLayout());
-        calendartabs.setTabPlacement(JTabbedPane.LEFT);
-        calendartabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        calendarpanel.add(calendartabs, BorderLayout.CENTER);
-        tabs.add(calendarpanel);
-        updateCalendars();
+        tabs.add(calendarPanel);
 
         // pack the rss tab
         rsspanel.setName("RSS");
@@ -92,19 +101,21 @@ public class MainWindow extends JFrame {
         pack();
     }
 
-    private void updateCalendars(){
-        calendartabs.removeAll();
-        try {
-            List<CalendarListEntry> cl = Program.calendars.fetchCalendars().getItems();
-            for(CalendarListEntry c : cl){
-                calendartabs.add(new JCalendar(Program.calendars.fetchCalendar(c.getId())));
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Failed to pull calendars: " + e.getMessage(), "EVE Calendars", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    private void exit(){
+        setVisible(false);
+        Program.exit();
+        dispose();
+        System.exit(0);
+    }
+
+    private void createCalendar(){
+        CalendarCreator dialog = new CalendarCreator();
+        if(dialog.run())
+            refreshCalendars();
+    }
+
+    private void refreshCalendars(){
+        SwingUtilities.invokeLater(() -> calendarPanel.updateCalendars());
     }
 
 }

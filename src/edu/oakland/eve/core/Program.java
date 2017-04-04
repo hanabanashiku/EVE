@@ -41,7 +41,7 @@ public class Program {
 		}
 
 		if(!System.getProperty("java.runtime.name").equalsIgnoreCase("android runtime")){
-			JFrame mainw = new MainWindow();
+			new MainWindow();
 		}
 
 		/* ********************* *
@@ -56,8 +56,8 @@ public class Program {
 	/**
 		Exit the application
 	 */
-	public void exit(){
+	public static void exit(){
 		settings.save();
-
+		rss.save();
 	}
 }

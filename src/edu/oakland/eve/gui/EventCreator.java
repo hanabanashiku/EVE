@@ -5,10 +5,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.google.api.client.util.DateTime;
-import com.google.api.services.calendar.model.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 
@@ -46,17 +46,16 @@ public class EventCreator extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
         pack();
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
-
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        // set defaults
+        Calendar cal = Calendar.getInstance();
+        startmonth.setSelectedIndex(cal.get(Calendar.MONTH));
+        endmonth.setSelectedIndex(cal.get(Calendar.MONTH));
+        startday.setSelectedIndex(cal.get(Calendar.DAY_OF_MONTH) - 1);
+        endday.setSelectedIndex(cal.get(Calendar.DAY_OF_MONTH) - 1);
+        startyear.setText(Integer.toString(cal.get(Calendar.YEAR)));
+        endyear.setText(Integer.toString(cal.get(Calendar.YEAR)));
+        buttonOK.addActionListener(e -> onOK());
+        buttonCancel.addActionListener(e -> onCancel());
 
         allDayBox.addChangeListener(new boxListener());
 
@@ -69,11 +68,8 @@ public class EventCreator extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void onOK() {
@@ -105,7 +101,7 @@ public class EventCreator extends JDialog {
         dispose();
     }
 
-    // disable or en able hour based on allday box
+    // disable or enable hour based on allday box
     private class boxListener implements ChangeListener{
         public void stateChanged(ChangeEvent e){
             if(allDayBox.isSelected()){

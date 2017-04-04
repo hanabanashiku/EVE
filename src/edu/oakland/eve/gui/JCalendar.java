@@ -29,22 +29,23 @@ import static java.util.Calendar.YEAR;
  */
 public class JCalendar extends JPanel{
     private Calendar cal;
-    private java.util.GregorianCalendar javacal;
+    private java.util.GregorianCalendar javaCal;
     private JLabel title;
     private JButton backButton;
     private JButton forwardButton;
     private JButton addButton;
+    private JPanel buttons;
     private JTable table;
     private JScrollPane pane;
     private DefaultTableModel model;
     private EventContentPane eventPanel;
 
-    private String[] columns = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+    private final String[] columns = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 
     public JCalendar(Calendar c){
         cal = c; // give an instance of the calendar
-        javacal = new GregorianCalendar(); // get a Calendar with today's date.
-        javacal.set(java.util.Calendar.DAY_OF_MONTH, 1); // always use the first
+        javaCal = new GregorianCalendar(); // get a Calendar with today's date.
+        javaCal.set(java.util.Calendar.DAY_OF_MONTH, 1); // always use the first
 
         // set the name of the tab
         if(c.getSummary() == null) setName("Untitled");
@@ -61,6 +62,7 @@ public class JCalendar extends JPanel{
         forwardButton.setIcon(new ImageIcon(JCalendar.class.getResource("resources/arrow-thick-right.png")));
         forwardButton.addActionListener(e -> flipForward());
 
+        buttons = new JPanel();
         addButton = new JButton();
         addButton.setIcon(new ImageIcon(JCalendar.class.getResource("resources/plus.png")));
         addButton.addActionListener(e -> addEvent());
@@ -82,15 +84,17 @@ public class JCalendar extends JPanel{
 
         //pack the elements
         this.setLayout(new BorderLayout());
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(backButton, BorderLayout.WEST);
-        panel.add(title, BorderLayout.CENTER);
-        panel.add(forwardButton, BorderLayout.EAST);
-        this.add(panel, BorderLayout.NORTH);
+        JPanel header = new JPanel();
+        header.setLayout(new BorderLayout());
+        header.add(backButton, BorderLayout.WEST);
+        header.add(title, BorderLayout.CENTER);
+        header.add(forwardButton, BorderLayout.EAST);
+        buttons.setLayout(new BorderLayout());
+        buttons.add(addButton, BorderLayout.EAST);
+        this.add(header, BorderLayout.NORTH);
         this.add(pane, BorderLayout.CENTER);
-        this.add(addButton, BorderLayout.EAST);
-        this.add(eventPanel, BorderLayout.SOUTH);
+        this.add(buttons, BorderLayout.SOUTH);
+        buttons.add(eventPanel, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(325, -1));
 
         // pull from the calendar
@@ -100,31 +104,31 @@ public class JCalendar extends JPanel{
     // set the label of the header to the current java.util.Calendar date.
     private void setHeader(){
         title.setText(
-                new SimpleDateFormat("MMMM yyy").format(javacal.getTime())
+                new SimpleDateFormat("MMMM yyy").format(javaCal.getTime())
         );
     }
 
     // back button handler
     private void flipBack(){
-        javacal.add(MONTH, -1);
+        javaCal.add(MONTH, -1);
         setHeader();
         populate();
     }
 
     // forward button handler
     private void flipForward(){
-        javacal.add(MONTH, +1);
+        javaCal.add(MONTH, +1);
         setHeader();
         populate();
     }
 
     // populate the table using events from the google calendar instance
     // http://www.javacodex.com/Swing/Swing-Calendar
-    public void populate(){
+    void populate(){
         model.setRowCount(0); // reset the rows
-        model.setRowCount(javacal.getActualMaximum(java.util.Calendar.WEEK_OF_MONTH));
-        int start = javacal.get(DAY_OF_WEEK);
-        int max = javacal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+        model.setRowCount(javaCal.getActualMaximum(java.util.Calendar.WEEK_OF_MONTH));
+        int start = javaCal.get(DAY_OF_WEEK);
+        int max = javaCal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
 
         int j = start - 1; // day of the week
         for(int i = 1; i <= max; i++){
@@ -138,7 +142,7 @@ public class JCalendar extends JPanel{
             Events el = Program.calendars.showEvents(cal);
             for(Event e : el.getItems()){
                 LocalDate dt = CalendarAPI.getDate(e.getStart().getDate());
-                if(dt.getMonth().getValue() - 1 == javacal.get(MONTH) && dt.getYear() == javacal.get(YEAR)){
+                if(dt.getMonth().getValue() - 1 == javaCal.get(MONTH) && dt.getYear() == javaCal.get(YEAR)){
                     CalendarCell cell = (CalendarCell)table.getValueAt(week(dt.getDayOfMonth()), dayofweek(dt.getDayOfWeek()));
                     cell.addEvent(e);
                 }
@@ -162,7 +166,7 @@ public class JCalendar extends JPanel{
     private int week(int day){
         int ret = 0;
         // what day of the week does the first fall on?
-        int first = javacal.get(DAY_OF_WEEK);
+        int first = javaCal.get(DAY_OF_WEEK);
         // what day is the first saturday?
         for(int i = 7 - first; i < day; i+= 7){
             ret++;
@@ -170,14 +174,14 @@ public class JCalendar extends JPanel{
         return ret;
     }
 
-    private void addEvent(){
+    void addEvent(){
         Event event = new EventCreator((JFrame)SwingUtilities.getRoot(this)).run();
         if(event == null) return;
         try{
             Program.calendars.addEvent(cal, event);
         }
         catch(IOException e){
-            JOptionPane.showMessageDialog((JFrame)SwingUtilities.getRoot(this), "Error creating event: " + e.getMessage(), "EVE Calendars", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(SwingUtilities.getRoot(this), "Error creating event: " + e.getMessage(), "EVE Calendars", JOptionPane.ERROR_MESSAGE);
         }
         populate();
     }
@@ -193,7 +197,7 @@ public class JCalendar extends JPanel{
     }
 
     class CalendarModel extends DefaultTableModel{
-        public CalendarModel(Object[][] data, Object[] columnNames) {
+        private CalendarModel(Object[][] data, Object[] columnNames) {
             super(data, columnNames);
         }
         @Override

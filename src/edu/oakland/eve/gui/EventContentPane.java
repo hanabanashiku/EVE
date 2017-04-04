@@ -18,15 +18,15 @@ import java.time.format.DateTimeFormatter;
  * @version 1.0
  * @since 1.0
  */
-public class EventContentPane extends JPanel {
-    JLabel label;
-    JPanel buttons;
-    JButton edit;
-    JButton remove;
-    Event event;
-    Calendar cal;
+class EventContentPane extends JPanel {
+    private JLabel label;
+    private JPanel buttons;
+    private JButton edit;
+    private JButton remove;
+    private Event event;
+    private Calendar cal;
 
-    public EventContentPane(Calendar c){
+    EventContentPane(Calendar c){
         cal = c;
         setLayout(new BorderLayout());
         label = new JLabel();
@@ -44,7 +44,7 @@ public class EventContentPane extends JPanel {
         setVisible(false);
     }
 
-    public void update(Event e){
+    void update(Event e){
         event = e;
         String text = "<html>";
         text += "<center>" + e.getSummary() + "</center>";
@@ -69,7 +69,7 @@ public class EventContentPane extends JPanel {
     /**
      * Delete the current event
      */
-    public void deleteEvent(){
+    private void deleteEvent(){
         int delete = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete " + event.getSummary() + "?", "EVE Calendars", JOptionPane.YES_NO_OPTION);
         if(delete == JOptionPane.YES_OPTION){
             try {
