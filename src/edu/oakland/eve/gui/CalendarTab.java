@@ -61,18 +61,19 @@ class CalendarTab extends JPanel {
              // right click
              if(e.getButton() == 3){
                  int n = tabs.getUI().tabForCoordinate(tabs, e.getX(), e.getY());
-                 new ContextMenu(tabs.getComponentAt(n), e.getX(), e.getY());
+                 new ContextMenu(tabs, e.getX(), e.getY());
              }
          }
     }
 
     class ContextMenu extends JPopupMenu{
-         ContextMenu(Component comp, int x, int y) {
+         ContextMenu(JTabbedPane comp, int x, int y) {
              JMenuItem addEventItem = new JMenuItem("New Event");
-             addEventItem.addActionListener(e -> ((JCalendar)comp).addEvent());
+             JCalendar jCal = (JCalendar)comp.getComponentAt(comp.indexAtLocation(x, y));
+             addEventItem.addActionListener(e -> jCal.addEvent());
              JMenuItem editItem = new JMenuItem("Edit Calendar");
              JMenuItem deleteItem = new JMenuItem("Delete Calendar");
-             deleteItem.addActionListener(e -> deleteCalendar((JCalendar)comp));
+             deleteItem.addActionListener(e -> deleteCalendar(jCal));
              add(addEventItem);
              add(editItem);
              addSeparator();
