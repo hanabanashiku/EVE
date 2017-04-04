@@ -14,17 +14,21 @@ import java.net.URLConnection;
 import java.io.*;
 import java.util.*;
 import java.text.DecimalFormat;
+import javax.swing.ImageIcon;
+
 /**
  * @author Murilo Delgado
- * @version 1.1
+ * @version 1.3
  * @since 1.0
  * Gives weather info
- * Currently returns max temp, min temp, and if it will rain
+ * Currently returns max temp, min temp, if it will rain, condition code, and an icon code for GUI
  * based off api.openweather.org
  */
 
     public class Weather {
         private double tempMax, tempMin;
+        private String icon;
+        private int condNumber;
         private boolean rain = false;
         private char measurement = 'F';
         private PrintStream file = new PrintStream(new FileOutputStream("Forecast.txt"));
@@ -35,7 +39,7 @@ import java.text.DecimalFormat;
 
         // constructor creates a file "Forecast.txt" that has a one line string input
         // with all the information
-        private Weather(String city, char c) throws IOException, SAXException, TransformerException, ParserConfigurationException{          
+        public Weather(String city, char c) throws IOException, SAXException, TransformerException, ParserConfigurationException{          
             // saving to file
             System.setOut(file);
    
@@ -115,14 +119,24 @@ import java.text.DecimalFormat;
                         rain = false;
                 }
                 
-                // grab condition
-                if (nextWord.contains("number=")){
-                    
-                }
-                
                 // grab icon for weather
                 if (nextWord.contains("icon=")){
+                    icon = nextWord;
                     
+                    // clean up the info
+                    icon = icon.replace("icon=", "");
+                    icon = icon.replace('"', ' ');                    
+                }
+                
+                // grab the weather condition code
+                if (nextWord.contains("number=")){
+                    String number = nextWord;
+                    
+                    // clean up the info
+                    number = number.replace("number=", "");
+                    number = number.replace('"', ' ');
+                    
+                    condNumber = Integer.parseInt(number);
                 }
             }
             
@@ -146,6 +160,40 @@ import java.text.DecimalFormat;
             }
             
             return x;
+        }
+        
+        // method that returns a string condition for the UI
+        private String conditionManager(int n){
+            String answer = "";
+            
+            if (n >= 200 && n <= 232)
+                answer += "thunderstorms";
+            
+            if (n >= 300 && n <= 321)
+                answer += "light drizzle";
+            
+            if (n >= 500 && n <= 531)
+                answer += "heavy rain";
+            
+            if (n >= 600 && n <= 622)
+                answer += "snow shower";
+            
+            else
+                answer += "unclear reading";
+            
+            
+            return answer;
+        }
+        
+        // convert to ImageIcon
+        private ImageIcon createImageIcon(String path, String description){          
+            java.net.URL imgURL = getClass().getResource(path);
+            if (imgURL != null) {
+                return new ImageIcon(imgURL, description);
+            } else {
+                System.err.println("Couldn't find file: " + path);
+                return null;
+            }
         }
         
         // getter method for max temp
@@ -181,4 +229,16 @@ import java.text.DecimalFormat;
             
             return answer;
         }
+        
+        // getter method that returns icon ID
+        public ImageIcon getIcon(){
+                     
+            return createImageIcon("Weather Icons/" + icon, "weather icon");
+        }
+        
+        // getter method that returns the condition code
+        public String getCondition(){                     
+            return conditionManager(condNumber);
+        }
+             
     }
