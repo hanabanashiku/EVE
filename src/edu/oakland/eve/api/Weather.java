@@ -18,18 +18,18 @@ import javax.swing.ImageIcon;
 
 /**
  * @author Murilo Delgado
- * @version 1.3
- * @since 1.0
+ * @version 1.4
+ * @since 1.3
  * Gives weather info
  * Currently returns max temp, min temp, if it will rain, condition code, and an icon code for GUI
  * based off api.openweather.org
  */
 
     public class Weather {
-        public String city;
         private double tempMax, tempMin;
+        public String city;
         private String icon;
-        private int condNumber;
+        public String condNumber;
         private boolean rain = false;
         private char measurement = 'F';
         private PrintStream file = new PrintStream(new FileOutputStream("Forecast.txt"));
@@ -41,8 +41,6 @@ import javax.swing.ImageIcon;
         // constructor creates a file "Forecast.txt" that has a one line string input
         // with all the information
         public Weather(String city, char c) throws IOException, SAXException, TransformerException, ParserConfigurationException{          
-            city = city;
-            
             // saving to file
             System.setOut(file);
    
@@ -60,6 +58,8 @@ import javax.swing.ImageIcon;
         // a XML formatted response with all weather information (temp in K)
         // another method will deal with converting temp and parsing in useful info only
         private void generateWeather(String city) throws IOException, SAXException, TransformerException, ParserConfigurationException{
+            city = city;
+            
             // creating the URL
             String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&mode=xml&appid=" + APIKey;
             
@@ -128,18 +128,17 @@ import javax.swing.ImageIcon;
                     
                     // clean up the info
                     icon = icon.replace("icon=", "");
-                    icon = icon.replace('"', ' ');                    
+                    icon = icon.replace('"', ' ');   
+                    icon = icon.replace(" ", "");
                 }
                 
                 // grab the weather condition code
                 if (nextWord.contains("number=")){
-                    String number = nextWord;
+                    String condNumber = nextWord;
                     
                     // clean up the info
-                    number = number.replace("number=", "");
-                    number = number.replace('"', ' ');
-                    
-                    condNumber = Integer.parseInt(number);
+                    condNumber = condNumber.replace("number=", "");
+                    condNumber = condNumber.replace('"', ' ');
                 }
             }
             
@@ -166,19 +165,19 @@ import javax.swing.ImageIcon;
         }
         
         // method that returns a string condition for the UI
-        private String conditionManager(int n){
-            String answer = "";
+        private String conditionManager(String n){
+            String answer = " ";
             
-            if (n >= 200 && n <= 232)
+            if (n.startsWith("2"))
                 answer += "thunderstorms";
             
-            if (n >= 300 && n <= 321)
+            if (n.startsWith("3"))
                 answer += "light drizzle";
             
-            if (n >= 500 && n <= 531)
+            if (n.startsWith("5"))
                 answer += "heavy rain";
             
-            if (n >= 600 && n <= 622)
+            if (n.startsWith("6"))
                 answer += "snow shower";
             
             else
@@ -235,8 +234,7 @@ import javax.swing.ImageIcon;
         
         // getter method that returns icon ID
         public ImageIcon getIcon(){
-                     
-            return createImageIcon("Weather Icons/" + icon, "weather icon");
+            return createImageIcon("resources/" + icon + ".png", "weather icon");
         }
         
         // getter method that returns the condition code
