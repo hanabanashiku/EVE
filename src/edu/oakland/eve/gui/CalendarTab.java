@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -42,6 +43,19 @@ class CalendarTab extends JPanel {
         }
     }
 
+    void deleteCalendar(JCalendar jCal){
+         if(JOptionPane.showConfirmDialog(this, "Delete the calendar?", "EVE Calendars", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+             try {
+                 Program.calendars.deleteCalendar(jCal.getCalender());
+                 updateCalendars();
+             }
+             catch(IOException e){
+                 JOptionPane.showMessageDialog(this, "Error deleting calendar: " + e.getMessage(), "EVE Calendars", JOptionPane.ERROR_MESSAGE);
+             }
+         }
+    }
+
+
     class Listener extends MouseAdapter {
          public void mouseClicked(MouseEvent e){
              // right click
@@ -58,6 +72,7 @@ class CalendarTab extends JPanel {
              addEventItem.addActionListener(e -> ((JCalendar)comp).addEvent());
              JMenuItem editItem = new JMenuItem("Edit Calendar");
              JMenuItem deleteItem = new JMenuItem("Delete Calendar");
+             deleteItem.addActionListener(e -> deleteCalendar((JCalendar)comp));
              add(addEventItem);
              add(editItem);
              addSeparator();

@@ -56,6 +56,9 @@ public class CalendarAPI{
 
 	private com.google.api.services.calendar.Calendar client;
 
+	public static final String DATE_PARSER = "yyyy-MM-dd";
+	public static final String DATE_TIME_PARSER = "yyyy-MM-dd'T'HH:mm:ss.XXX";
+
 	static{
 		try{
 			http = GoogleNetHttpTransport.newTrustedTransport();
@@ -157,7 +160,7 @@ public class CalendarAPI{
 	}
 
 	public void removeEvent(Calendar calendar, Event event) throws IOException{
-		client.calendars().get(calendar.getId()).remove(event);
+		client.events().delete(calendar.getId(), event.getId()).execute();
 	}
 
 	/**
@@ -235,8 +238,7 @@ public class CalendarAPI{
 	 * @return A parsed java LocalDate object
 	 */
 	public static LocalDate getDate(DateTime dt){
-		//String[] parsers = {"yyyy-MM-dd'T'HH:mm:ssXXX", "yyyd-MM-dd"};
-		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter f = DateTimeFormatter.ofPattern(DATE_PARSER);
 		return LocalDate.parse(dt.toStringRfc3339(), f);
 	}
 
@@ -248,10 +250,10 @@ public class CalendarAPI{
 	 */
 	public static LocalDateTime getDateTime(DateTime dt){
 		try {
-			DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
+			DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 			return LocalDateTime.parse(dt.toStringRfc3339(), f);
 		}
-		catch(Exception e) { return null; }
+		catch(Exception e) { e.printStackTrace(); return null; }
 	}
 
 }

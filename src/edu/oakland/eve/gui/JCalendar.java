@@ -42,6 +42,8 @@ public class JCalendar extends JPanel{
 
     private final String[] columns = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 
+    public Calendar getCalender() { return cal; }
+
     public JCalendar(Calendar c){
         cal = c; // give an instance of the calendar
         javaCal = new GregorianCalendar(); // get a Calendar with today's date.
@@ -71,7 +73,7 @@ public class JCalendar extends JPanel{
         title.setHorizontalAlignment(SwingConstants.CENTER);
         setHeader();
 
-        eventPanel = new EventContentPane(cal);
+        eventPanel = new EventContentPane(cal, this);
 
         model = new CalendarModel(null, columns);
         table = new JTable(model);
@@ -141,10 +143,21 @@ public class JCalendar extends JPanel{
         try{
             Events el = Program.calendars.showEvents(cal);
             for(Event e : el.getItems()){
-                LocalDate dt = CalendarAPI.getDate(e.getStart().getDate());
-                if(dt.getMonth().getValue() - 1 == javaCal.get(MONTH) && dt.getYear() == javaCal.get(YEAR)){
-                    CalendarCell cell = (CalendarCell)table.getValueAt(week(dt.getDayOfMonth()), dayofweek(dt.getDayOfWeek()));
-                    cell.addEvent(e);
+                // All day event
+                if(e.getStart().getDateTime() == null){
+                    LocalDate dt = CalendarAPI.getDate(e.getStart().getDate());
+                    if(dt.getMonth().getValue() - 1 == javaCal.get(MONTH) && dt.getYear() == javaCal.get(YEAR)){
+                        CalendarCell cell = (CalendarCell)table.getValueAt(week(dt.getDayOfMonth()), dayofweek(dt.getDayOfWeek()));
+                        cell.addEvent(e);
+                    }
+                }
+                // has date and time
+                else{
+                    LocalDateTime dt = CalendarAPI.getDateTime(e.getStart().getDateTime());
+                    if(dt.getMonth().getValue() - 1 == javaCal.get(MONTH) && dt.getYear() == javaCal.get(YEAR)){
+                        CalendarCell cell = (CalendarCell)table.getValueAt(week(dt.getDayOfMonth()), dayofweek(dt.getDayOfWeek()));
+                        cell.addEvent(e);
+                    }
                 }
             }
         }

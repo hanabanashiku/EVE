@@ -5,12 +5,15 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
+import edu.oakland.eve.api.CalendarAPI;
 
 public class EventCreator extends JDialog {
     private JPanel contentPane;
@@ -74,6 +77,10 @@ public class EventCreator extends JDialog {
 
     private void onOK() {
         Event e = new Event();
+        if(name.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "The event must have a title.", "EVE Calendars", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         e.setSummary(name.getText());
         if(!desc.getText().isEmpty()) e.setDescription(desc.getText());
         EventDateTime start = getStartTime();
@@ -86,7 +93,7 @@ public class EventCreator extends JDialog {
             }
         }
         else{
-            if(end.getDateTime().getValue() < start.getDateTime().getValue()){
+            if(end.getDateTime().getValue() <= start.getDateTime().getValue()){
                 JOptionPane.showMessageDialog(this, "The end date is before the start date.", "EVE Calendars", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -129,6 +136,7 @@ public class EventCreator extends JDialog {
 
     private EventDateTime getTime(JComboBox monthf, JComboBox dayf, JTextField yearf, JComboBox hourf, JComboBox apf){
         int month;
+        // convert the month name to the number
         java.util.Calendar c = java.util.Calendar.getInstance();
         try{ c.setTime(new SimpleDateFormat("MMMM").parse((String)monthf.getSelectedItem())); } catch(Exception e){}
         month = c.get(java.util.Calendar.MONTH) + 1;
@@ -149,16 +157,18 @@ public class EventCreator extends JDialog {
             boolean pm = apf.getSelectedItem().equals("PM");
             if(pm && hour != 12) hour -= 12;
             else if(!pm && hour == 12) hour = 0;
-            Date date = new Date(year, month, day, hour, 0);
-            EventDateTime dt = new EventDateTime();
-            dt.setDateTime(new DateTime(date));
-            return dt;
+            LocalDateTime ldt = LocalDateTime.of(year, month, day, hour, 0);
+            return new EventDateTime()
+                    .setDateTime(new DateTime(
+                            ZonedDateTime.of(ldt, ZoneId.systemDefault())
+                                    .format(DateTimeFormatter
+                                            .ofPattern(CalendarAPI.DATE_TIME_PARSER))));
         }
         else{
-            Date date = new Date(year, month, day);
-            EventDateTime dt = new EventDateTime();
-            dt.setDate(new DateTime(true, date.getTime(), 0));
-            return dt;
+            LocalDate ld = LocalDate.of(year, month, day);
+            return new EventDateTime()
+                    .setDate(new DateTime(ld.format(DateTimeFormatter.
+                    ofPattern(CalendarAPI.DATE_PARSER))));
         }
     }
 

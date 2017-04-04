@@ -25,9 +25,11 @@ class EventContentPane extends JPanel {
     private JButton remove;
     private Event event;
     private Calendar cal;
+    private JCalendar jCalendar;
 
-    EventContentPane(Calendar c){
+    EventContentPane(Calendar c, JCalendar jCal){
         cal = c;
+        jCalendar = jCal;
         setLayout(new BorderLayout());
         label = new JLabel();
         edit = new JButton("Edit");
@@ -75,7 +77,7 @@ class EventContentPane extends JPanel {
             try {
                 Program.calendars.removeEvent(cal, event);
                 setVisible(false);
-                ((JCalendar)this.getParent()).populate();
+                jCalendar.populate();
             }
             catch(IOException e){
                 JOptionPane.showMessageDialog(this, "Error removing event: " + e.getMessage(), "EVE Calendars", JOptionPane.ERROR_MESSAGE);
