@@ -34,6 +34,7 @@ class EventContentPane extends JPanel {
         label = new JLabel();
         edit = new JButton("Edit");
         edit.setIcon(new ImageIcon(EventContentPane.class.getResource("resources/pencil.png")));
+        edit.addActionListener(e -> new EventEditor(jCalendar, event).run());
         remove = new JButton("Delete");
         remove.setIcon(new ImageIcon(EventContentPane.class.getResource("resources/trash.png")));
         remove.addActionListener(e -> deleteEvent());

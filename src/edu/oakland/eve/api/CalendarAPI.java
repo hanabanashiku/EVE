@@ -180,6 +180,16 @@ public class CalendarAPI{
 	}
 
 	/**
+	 * Update an event
+	 * @param calendar The calendar containing the event
+	 * @param event The updated event
+	 * @throws IOException
+	 */
+	public void updateEvent(Calendar calendar, Event event) throws IOException{
+		client.events().update(calendar.getId(), event.getId(), event).execute();
+	}
+
+	/**
 	 * Create a new event using the system's default timezone
 	 * @param summary The event's summary
 	 * @param start The event's start time

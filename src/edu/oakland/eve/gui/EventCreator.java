@@ -17,22 +17,15 @@ import edu.oakland.eve.api.CalendarAPI;
 
 public class EventCreator extends JDialog {
     private JPanel contentPane;
-    private JPanel formpanel;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField name;
     private JTextField desc;
-    private JLabel descl;
-    private JLabel startl;
-    private JLabel endl;
-    private JLabel namel;
     private JComboBox startmonth;
-    private JPanel starttimepanel;
     private JComboBox startday;
     private JTextField startyear;
     private JComboBox starth;
     private JComboBox startap;
-    private JPanel endtimepanel;
     private JComboBox endmonth;
     private JComboBox endday;
     private JTextField endyear;
@@ -145,11 +138,11 @@ public class EventCreator extends JDialog {
         try{
             year = Integer.parseInt(yearf.getText());
         } catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "Invalid year format", "EVE Calendars", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(monthf.getRootPane(), "Invalid year format", "EVE Calendars", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         if(year < 1970 || year > 2999){
-            JOptionPane.showMessageDialog(this, "Invalid year specified", "EVE Calendars", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(monthf.getRootPane(), "Invalid year specified", "EVE Calendars", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         if(!allday.isSelected()){
