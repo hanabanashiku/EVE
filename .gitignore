@@ -152,4 +152,8 @@ $RECYCLE.BIN/
 # Google client secrets file
 client_secrets.json
 
+#EVE files
+rss_cli.db
+settings.bin
+
 # End of https://www.gitignore.io/api/windows,macos,linux,java,intellij,netbeans
