@@ -26,6 +26,7 @@ import javax.swing.ImageIcon;
  */
 
     public class Weather {
+        public String city;
         private double tempMax, tempMin;
         private String icon;
         private int condNumber;
@@ -40,6 +41,8 @@ import javax.swing.ImageIcon;
         // constructor creates a file "Forecast.txt" that has a one line string input
         // with all the information
         public Weather(String city, char c) throws IOException, SAXException, TransformerException, ParserConfigurationException{          
+            city = city;
+            
             // saving to file
             System.setOut(file);
    
