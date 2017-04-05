@@ -1,3 +1,5 @@
+package edu.oakland.eve.api;
+
 import java.io.IOException;
 import org.xml.sax.SAXException;
 import java.net.URL;
@@ -18,7 +20,7 @@ import javax.swing.ImageIcon;
 
 /**
  * @author Murilo Delgado
- * @version 1.4
+ * @version 1.5
  * @since 1.3
  * Gives weather info
  * Currently returns max temp, min temp, if it will rain, condition code, and an icon code for GUI
@@ -29,7 +31,7 @@ import javax.swing.ImageIcon;
         private double tempMax, tempMin;
         public String city;
         private String icon;
-        public String condNumber;
+        private int condition;
         private boolean rain = false;
         private char measurement = 'F';
         private PrintStream file = new PrintStream(new FileOutputStream("Forecast.txt"));
@@ -139,6 +141,8 @@ import javax.swing.ImageIcon;
                     // clean up the info
                     condNumber = condNumber.replace("number=", "");
                     condNumber = condNumber.replace('"', ' ');
+                    condNumber = condNumber.replace(" ", "");
+                    condition = Integer.parseInt(condNumber);
                 }
             }
             
@@ -165,24 +169,26 @@ import javax.swing.ImageIcon;
         }
         
         // method that returns a string condition for the UI
-        private String conditionManager(String n){
-            String answer = " ";
+        private String conditionManager(int n){
+            String answer = "";
+                      
+            if (n >= 200 && n <= 299)
+                answer += "thunderstoms";
             
-            if (n.startsWith("2"))
-                answer += "thunderstorms";
+            if (n >= 300 && n <= 399)
+                answer += "light drizzles";
             
-            if (n.startsWith("3"))
-                answer += "light drizzle";
+            if (n >= 500 && n <= 599)
+                answer += "rain showers";
             
-            if (n.startsWith("5"))
-                answer += "heavy rain";
+            if (n >= 600 & n <= 699)
+                answer += "snowing";
             
-            if (n.startsWith("6"))
-                answer += "snow shower";
+            if (n == 800)
+                answer += "clear sky";
             
-            else
-                answer += "unclear reading";
-            
+            if (n >= 800 && n <= 899)
+                answer += "overcast";
             
             return answer;
         }
@@ -221,15 +227,8 @@ import javax.swing.ImageIcon;
         }
         
         // getter method that returns boolean for rain or not
-        public String willItRain(){
-            String answer = "";
-            if (rain == true)
-                answer += "Yes";
-            
-            else
-                answer += "No";
-            
-            return answer;
+        public boolean willItRain(){
+            return rain;
         }
         
         // getter method that returns icon ID
@@ -239,7 +238,7 @@ import javax.swing.ImageIcon;
         
         // getter method that returns the condition code
         public String getCondition(){                     
-            return conditionManager(condNumber);
+            return conditionManager(condition);
         }
              
     }
