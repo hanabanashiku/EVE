@@ -26,6 +26,7 @@ public class Feed implements Serializable, Iterable<Story>{
     private String name;
     private String title;
     private String link;
+    private Category cat = null;
     private URL url;
     private String description;
     private String imageUrl;
@@ -89,6 +90,10 @@ public class Feed implements Serializable, Iterable<Story>{
         }
         catch(Exception e) { return null; }
     }
+
+    public Category getCategory() { return cat; }
+
+    void setCategory(Category value) { cat = value; }
 
     /**
      * @return The number of stories saved in the feed
@@ -236,15 +241,22 @@ public class Feed implements Serializable, Iterable<Story>{
       if(isAtomFeed) nl = doc.getElementsByTagName("entry");
       else nl = doc.getElementsByTagName("item");
 
+      stories = new Stack<>();
+      for(int i = 0; i < nl.getLength(); i++){
+          Node n = nl.item(i);
+          stories.push(new Story(n, url.toString()));
+      }
+      /*System.out.println("Nodes found: " + nl.getLength());
       Story first = stories.isEmpty() ? null : stories.peek();
       for(int i = 0; i < nl.getLength(); i++){
+          System.out.println("Making story...");
         Node n = nl.item(i);
         String link = (isAtomFeed) ? getElementByName(n.getChildNodes(), "id").getNodeValue() : getElementByName(n.getChildNodes(), "guid").getNodeValue();
         // we caught up to the previous story
-        if(first != null && first.getLink().sameFile(new URL(link)))
+        if(link == null || first != null && first.getLink().sameFile(new URL(link)))
           break;
         stories.push(new Story(n, url.toString()));
-      }
+      }*/
     }
 
     /**

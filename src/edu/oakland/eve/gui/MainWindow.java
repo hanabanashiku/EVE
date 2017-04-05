@@ -16,10 +16,11 @@ public class MainWindow extends JFrame {
     private JMenu fileMenu, calendarMenu, rssMenu, helpMenu;
     private JMenuItem settingsItem, quitItem;
     private JMenuItem addCalendarItem, refreshItem;
+    private JMenuItem newFeedItem, newCateoryItem, pullFeedsItem;
     private JMenuItem aboutItem;
     private CalendarTab calendarPanel;
-    private JPanel rsspanel;
-    private JPanel weatherpanel;
+    private RSSTab rsspanel;
+    private WeatherUI weatherpanel;
     private JTabbedPane tabs;
 
     public MainWindow(){
@@ -52,11 +53,12 @@ public class MainWindow extends JFrame {
     private void createWidgets(){
         tabs = new JTabbedPane();
         calendarPanel = new CalendarTab();
-        rsspanel = new JPanel();
+        rsspanel = new RSSTab();
         weatherpanel = new WeatherUI();
         menuBar = new JMenuBar();
         fileMenu = new JMenu("File");
         settingsItem = new JMenuItem("Settings");
+        settingsItem.addActionListener(e -> new SettingsDialog(this, true));
         quitItem = new JMenuItem("Quit");
         quitItem.addActionListener(e -> exit());
         calendarMenu = new JMenu("Calendars");
@@ -65,8 +67,15 @@ public class MainWindow extends JFrame {
         refreshItem = new JMenuItem("Refresh Calendars");
         refreshItem.addActionListener(e->refreshCalendars());
         rssMenu = new JMenu("RSS");
+        newFeedItem = new JMenuItem("Add New Feed");
+        newFeedItem.addActionListener(e -> createFeed());
+        newCateoryItem = new JMenuItem("Create new Category");
+        newCateoryItem.addActionListener(e -> createCategory());
+        pullFeedsItem = new JMenuItem("Update Feeds");
+        pullFeedsItem.addActionListener(e -> pullFeeds());
         helpMenu = new JMenu("Help");
         aboutItem = new JMenuItem("About");
+        aboutItem.addActionListener(e -> new AboutDialog());
     }
 
     private void packWidgets(){
@@ -75,6 +84,10 @@ public class MainWindow extends JFrame {
         fileMenu.add(quitItem);
         calendarMenu.add(refreshItem);
         calendarMenu.add(addCalendarItem);
+        rssMenu.add(pullFeedsItem);
+        rssMenu.addSeparator();
+        rssMenu.add(newFeedItem);
+        rssMenu.add(newCateoryItem);
         helpMenu.add(aboutItem);
         menuBar.add(fileMenu);
         menuBar.add(calendarMenu);
@@ -82,11 +95,8 @@ public class MainWindow extends JFrame {
         menuBar.add(helpMenu);
         setJMenuBar(menuBar);
 
-        // pack the calendar tab
+        // pack the tabs
         tabs.add(calendarPanel);
-
-        // pack the rss tab
-        rsspanel.setName("RSS");
         tabs.add(rsspanel);
         tabs.add(weatherpanel);
         tabs.setMnemonicAt(0, KeyEvent.VK_C);
@@ -113,8 +123,25 @@ public class MainWindow extends JFrame {
             refreshCalendars();
     }
 
+    private void createFeed(){
+        FeedCreator dialog = new FeedCreator();
+        if(dialog.run() != null){
+            pullFeeds();
+        }
+    }
+
+    private void createCategory(){
+        CategoryCreator dialog = new CategoryCreator();
+        if(dialog.run() != null)
+            pullFeeds();
+    }
+
+    private void pullFeeds(){
+        rsspanel.pull();
+    }
+
     private void refreshCalendars(){
-        SwingUtilities.invokeLater(() -> calendarPanel.updateCalendars());
+        calendarPanel.updateCalendars();
     }
 
 }

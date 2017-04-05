@@ -40,6 +40,14 @@ public class Program {
 			return;
 		}
 
+		Runtime.getRuntime().addShutdownHook(new Thread(){
+			@Override
+			public void run() {
+				super.run();
+				Program.exit();
+			}
+		});
+
 		if(!System.getProperty("java.runtime.name").equalsIgnoreCase("android runtime")){
 			new MainWindow();
 		}
