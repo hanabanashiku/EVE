@@ -1,0 +1,15 @@
+package cnnrssfeed;
+
+import rss.*;
+
+
+public class CNNRSSFEED {
+   
+    //DISPLAYS RSSFEED IN SYSTEM CONSOLE 
+    
+    public static void main(String[] args) {
+       RSSSAX r = new RSSSAX();
+       r.displayRSS();
+    }
+    
+}
