@@ -63,6 +63,7 @@ public class EventEditor extends JDialog {
         if(ev.getSummary() != null) name.setText(ev.getSummary());
         if(ev.getDescription() != null) desc.setText(ev.getDescription());
         if(ev.getLocation() != null) location.setText(ev.getLocation());
+        //TODO: Fix dates not properly resolving
         if(ev.getStart().getDateTime() == null){
             allDayBox.setSelected(false);
             LocalDateTime start = CalendarAPI.getDateTime(ev.getStart().getDateTime());
