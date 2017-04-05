@@ -233,7 +233,7 @@ import javax.swing.ImageIcon;
         
         // getter method that returns icon ID
         public ImageIcon getIcon(){
-            return createImageIcon("resources/" + icon + ".png", "weather icon");
+            return createImageIcon("resources/weather/" + icon + ".png", "weather icon");
         }
         
         // getter method that returns the condition code
