@@ -1,14 +1,13 @@
 package edu.oakland.eve.gui;
 
-import com.teamdev.jxbrowser.chromium.Browser;
-import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import edu.oakland.eve.rss.Story;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URI;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -21,7 +20,7 @@ public class RSSContentPanel extends JPanel {
     private DefaultTableModel model;
     private JTable table;
     private JScrollPane pane;
-    private JPanel article;
+    //private JPanel article;
     private ArrayList<Story> stories;
 
     public RSSContentPanel(){
@@ -30,11 +29,11 @@ public class RSSContentPanel extends JPanel {
         String[] columns = {"Title", "Author", "Description", "Date", "Feed"};
         model = new DefaultTableModel(null, columns);
         table = new JTable(model);
-        table.getSelectionModel().addListSelectionListener(new Listener());
+        table.addMouseListener(new Listener());
         pane = new JScrollPane(table);
-        article = new JPanel();
+        //article = new JPanel();
         add(pane, BorderLayout.NORTH);
-        add(article, BorderLayout.SOUTH);
+        //add(article, BorderLayout.SOUTH);
     }
 
     public void add(Story s){
@@ -46,16 +45,27 @@ public class RSSContentPanel extends JPanel {
         ((DefaultTableModel)table.getModel()).addRow(data);
     }
 
-    class Listener implements ListSelectionListener {
+    class Listener extends MouseAdapter {
         @Override
-        public void valueChanged(ListSelectionEvent e) {
-            article.removeAll();
+        public void mouseClicked(MouseEvent e) {
             int i = table.getSelectedRow();
             if(!stories.get(i).wasRead()) stories.get(i).toggleRead();
-            Browser b = new Browser();
-            BrowserView bv = new BrowserView(b);
-            article.add(bv, BorderLayout.CENTER);
-            b.loadURL(stories.get(i).getLink().toString());
+            /*if(e.getClickCount() == 1){
+                JEditorPane text;
+                try{
+                text = new JEditorPane(stories.get(i).getLink().toString());}
+                catch(Exception err) { return; }
+                JScrollPane spane = new JScrollPane(text);
+                article.add(pane, BorderLayout.SOUTH);
+            }*/
+            if(e.getClickCount() == 1){
+                try {
+                    Desktop.getDesktop().browse(new URI(stories.get(i).getLink().toString()));
+                }
+                catch(Exception err){
+                    JOptionPane.showMessageDialog(null, "Error opening document: " + err.getMessage(), "EVE RSS", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }
 }
