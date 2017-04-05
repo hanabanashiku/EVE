@@ -53,7 +53,7 @@ public class MainWindow extends JFrame {
         tabs = new JTabbedPane();
         calendarPanel = new CalendarTab();
         rsspanel = new JPanel();
-        weatherpanel = new JPanel();
+        weatherpanel = new WeatherUI();
         menuBar = new JMenuBar();
         fileMenu = new JMenu("File");
         settingsItem = new JMenuItem("Settings");
@@ -88,7 +88,6 @@ public class MainWindow extends JFrame {
         // pack the rss tab
         rsspanel.setName("RSS");
         tabs.add(rsspanel);
-        weatherpanel.setName("Weather");
         tabs.add(weatherpanel);
         tabs.setMnemonicAt(0, KeyEvent.VK_C);
         tabs.setMnemonicAt(1, KeyEvent.VK_R);

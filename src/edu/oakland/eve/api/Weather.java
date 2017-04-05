@@ -59,8 +59,8 @@ import javax.swing.ImageIcon;
         // generateWeather takes in one parameter (city) and spits back
         // a XML formatted response with all weather information (temp in K)
         // another method will deal with converting temp and parsing in useful info only
-        private void generateWeather(String city) throws IOException, SAXException, TransformerException, ParserConfigurationException{
-            city = city;
+        private void generateWeather(String c) throws IOException, SAXException, TransformerException, ParserConfigurationException{
+            city = c;
             
             // creating the URL
             String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&mode=xml&appid=" + APIKey;
@@ -223,20 +223,21 @@ import javax.swing.ImageIcon;
         }
         
         // getter method that returns boolean for rain or not
+        // TODO: Maybe make this a boolean?
         public String willItRain(){
             String answer = "";
             if (rain == true)
                 answer += "Yes";
-            
+
             else
                 answer += "No";
-            
+
             return answer;
         }
         
         // getter method that returns icon ID
         public ImageIcon getIcon(){
-            return createImageIcon("resources/" + icon + ".png", "weather icon");
+            return createImageIcon("resources/weather/" + icon + ".png", "weather icon");
         }
         
         // getter method that returns the condition code
