@@ -10,6 +10,10 @@ import java.time.format.DateTimeParseException;
 
 import org.w3c.dom.*;
 
+
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+
 import edu.oakland.eve.error.RSSFormatException;
 
 /**
@@ -178,5 +182,12 @@ public class Story implements Serializable {
 
         read = false;
         saved = false;
+    }
+
+    public BrowserView getArticleView(){
+       Browser b = new Browser();
+       BrowserView bv = new BrowserView(b);
+       b.loadURL(link.toString());
+       return bv;
     }
 }

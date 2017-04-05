@@ -10,12 +10,30 @@ import java.io.*;
  */
 public class Settings implements Serializable {
 
+	private String city;
+	private char tempUnit;
 	private static final String filename = "settings.bin";
+
+	public String getCity() { return city; }
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public char getTempUnit() { return tempUnit; }
+
+	public void setTempUnit(char tempUnit) throws IllegalArgumentException{
+		if(tempUnit != 'F' && tempUnit != 'C')
+			throw new IllegalArgumentException("Invalid temperature unit.");
+		this.tempUnit = tempUnit;
+	}
 
 	// put default values here
 	private Settings(){
-
+		city = "Detroit";
+		tempUnit = 'F';
 	}
+
 
 	/**
 	 * Load user settings
@@ -35,9 +53,9 @@ public class Settings implements Serializable {
 	}
 
 	/***
-	* Close the instance and save to disk
+	* Save the settings instance to disk
 	*/
-	public void close(){
+	public void save(){
 		try{
 			FileOutputStream fout = new FileOutputStream(filename);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -49,6 +67,5 @@ public class Settings implements Serializable {
 	}
 	
 	// called by the garbage collector
-	protected void finalize() { close(); }
-
+	protected void finalize() { save(); }
 }

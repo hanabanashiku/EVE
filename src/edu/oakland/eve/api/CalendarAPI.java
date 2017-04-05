@@ -26,7 +26,16 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 import edu.oakland.eve.core.Program;
 
+
+import javax.swing.*;
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Date;
@@ -49,6 +58,9 @@ public class CalendarAPI{
 
 	private com.google.api.services.calendar.Calendar client;
 
+	public static final String DATE_PARSER = "yyyy-MM-dd";
+	public static final String DATE_TIME_PARSER = "yyyy-MM-dd'T'HH:mm:ss.XXX";
+
 	static{
 		try{
 			http = GoogleNetHttpTransport.newTrustedTransport();
@@ -68,6 +80,9 @@ public class CalendarAPI{
 	 */
 	public static Credential authorize() throws IOException{
 		InputStream in = CalendarAPI.class.getResourceAsStream("resources/client_secret.json");
+    
+		if(in == null) throw new IOException("Client information not found.");
+
 		GoogleClientSecrets secrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(in));
 
 		GoogleAuthorizationCodeFlow flow =
@@ -148,6 +163,11 @@ public class CalendarAPI{
 		client.events().insert(calendar.getId(), event).execute();
 	}
 
+
+	public void removeEvent(Calendar calendar, Event event) throws IOException{
+		client.events().delete(calendar.getId(), event.getId()).execute();
+	}
+
 	/**
 	 * Create a new event
 	 * @param summary The event's summary
@@ -162,6 +182,16 @@ public class CalendarAPI{
 		event.setStart(new EventDateTime().setDateTime(new DateTime(start, timeZone)));
 		event.setEnd(new EventDateTime().setDateTime(new DateTime(end, timeZone)));
 		return event;
+	}
+
+	/**
+	 * Update an event
+	 * @param calendar The calendar containing the event
+	 * @param event The updated event
+	 * @throws IOException
+	 */
+	public void updateEvent(Calendar calendar, Event event) throws IOException{
+		client.events().update(calendar.getId(), event.getId(), event).execute();
 	}
 
 	/**
@@ -217,5 +247,27 @@ public class CalendarAPI{
 	 */
 	public void deleteCalendar(Calendar c) throws IOException { deleteCalendar(c.getId()); }
 
+	/**
+	 * Convert Google's rather strange and nonstandard solution to a format we can work with.
+	 * @param dt The original DateTime object
+	 * @return A parsed java LocalDate object
+	 */
+	public static LocalDate getDate(DateTime dt){
+		DateTimeFormatter f = DateTimeFormatter.ofPattern(DATE_PARSER);
+		return LocalDate.parse(dt.toStringRfc3339(), f);
+	}
 
+	/**
+	 * Convert Google's rather strange and nonstandard solution to a format we can work with.
+	 * Note that this will return null if there is no time information
+	 * @param dt The original DateTime object
+	 * @return A parsed java LocalDateTime object
+	 */
+	public static LocalDateTime getDateTime(DateTime dt){
+		try {
+			DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+			return LocalDateTime.parse(dt.toStringRfc3339(), f);
+		}
+		catch(Exception e) { e.printStackTrace(); return null; }
+	}
 }
