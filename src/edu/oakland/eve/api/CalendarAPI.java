@@ -26,6 +26,7 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 import edu.oakland.eve.core.Program;
 
+
 import javax.swing.*;
 import java.io.*;
 import java.text.ParseException;
@@ -34,6 +35,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Date;
@@ -78,7 +80,9 @@ public class CalendarAPI{
 	 */
 	public static Credential authorize() throws IOException{
 		InputStream in = CalendarAPI.class.getResourceAsStream("resources/client_secret.json");
+    
 		if(in == null) throw new IOException("Client information not found.");
+
 		GoogleClientSecrets secrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(in));
 
 		GoogleAuthorizationCodeFlow flow =
@@ -158,6 +162,7 @@ public class CalendarAPI{
 	public void addEvent(Calendar calendar, Event event) throws IOException{
 		client.events().insert(calendar.getId(), event).execute();
 	}
+
 
 	public void removeEvent(Calendar calendar, Event event) throws IOException{
 		client.events().delete(calendar.getId(), event.getId()).execute();
@@ -265,5 +270,4 @@ public class CalendarAPI{
 		}
 		catch(Exception e) { e.printStackTrace(); return null; }
 	}
-
 }

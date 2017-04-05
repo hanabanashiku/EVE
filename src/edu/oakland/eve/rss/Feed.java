@@ -26,7 +26,9 @@ public class Feed implements Serializable, Iterable<Story>{
     private String name;
     private String title;
     private String link;
+
     private Category cat = null;
+
     private URL url;
     private String description;
     private String imageUrl;
@@ -90,6 +92,7 @@ public class Feed implements Serializable, Iterable<Story>{
         }
         catch(Exception e) { return null; }
     }
+
 
     public Category getCategory() { return cat; }
 
@@ -240,6 +243,7 @@ public class Feed implements Serializable, Iterable<Story>{
       catch(SAXException e) { throw new RSSFormatException(e.getMessage()); }
       if(isAtomFeed) nl = doc.getElementsByTagName("entry");
       else nl = doc.getElementsByTagName("item");
+
 
       stories = new Stack<>();
       for(int i = 0; i < nl.getLength(); i++){

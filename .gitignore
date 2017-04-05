@@ -151,6 +151,7 @@ $RECYCLE.BIN/
 
 # Google client secrets file
 client_secrets.json
+client_secret.json
 
 #EVE files
 rss_cli.db

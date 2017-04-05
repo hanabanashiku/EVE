@@ -52,6 +52,7 @@ public class Category implements Serializable, Iterable<Feed>{
         if(contains(f)) return false;
         if(!cli.contains(f)) cli.add(f);
         feeds.add(f);
+
         f.setCategory(this);
         return true;
     }
@@ -61,6 +62,7 @@ public class Category implements Serializable, Iterable<Feed>{
      * @param f The feed to remove
      * @return true if the feed was removed successfully.
      */
+
     public boolean remove(Feed f){
         if(feeds.remove(f)){
             f.setCategory(null);
@@ -74,6 +76,5 @@ public class Category implements Serializable, Iterable<Feed>{
     public boolean equals(Object o) {
         return o instanceof Category && ((Category) o).getName().equals(name);
     }
-
 }
 
