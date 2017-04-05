@@ -155,5 +155,7 @@ client_secrets.json
 #EVE files
 rss_cli.db
 settings.bin
+Forecast.txt
+Future.txt
 
 # End of https://www.gitignore.io/api/windows,macos,linux,java,intellij,netbeans
